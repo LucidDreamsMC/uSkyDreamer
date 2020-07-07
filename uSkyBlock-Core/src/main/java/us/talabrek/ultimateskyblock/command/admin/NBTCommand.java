@@ -6,7 +6,6 @@ import dk.lockfuglsang.minecraft.nbt.NBTUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import us.talabrek.ultimateskyblock.handler.VaultHandler;
 import dk.lockfuglsang.minecraft.util.ItemStackUtil;
 
 import java.util.Map;
