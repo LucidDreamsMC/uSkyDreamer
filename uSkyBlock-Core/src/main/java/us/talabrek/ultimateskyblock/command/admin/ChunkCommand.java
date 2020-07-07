@@ -19,9 +19,9 @@ public class ChunkCommand extends CompositeCommand {
             @Override
             void doChunkCommand(Player player, Chunk chunk) {
                 if (chunk.getWorld().regenerateChunk(chunk.getX(), chunk.getZ())) {
-                    player.sendMessage(tr("successfully regenerated chunk at {0},{1}", chunk.getX(), chunk.getZ()));
+                    player.sendMessage(tr("§9☀ §8» §7Successfully regenerated chunk at §9{0}§7,§9{1}§7!", chunk.getX(), chunk.getZ()));
                 } else {
-                    player.sendMessage(tr("\u00a74FAILED!\u00a7e could not regenerate chunk at {0},{1}", chunk.getX(), chunk.getZ()));
+                    player.sendMessage(tr("§9☀ §8» §7Could not regenerate chunk at §9{0}§7,§9{1}§7!", chunk.getX(), chunk.getZ()));
                 }
             }
         });
@@ -29,9 +29,9 @@ public class ChunkCommand extends CompositeCommand {
             @Override
             void doChunkCommand(Player player, Chunk chunk) {
                 if (chunk.getWorld().unloadChunk(chunk.getX(), chunk.getZ(), false)) {
-                    player.sendMessage(tr("successfully unloaded chunk at {0},{1}", chunk.getX(), chunk.getZ()));
+                    player.sendMessage(tr("§9☀ §8» §7Successfully unloaded chunk at §9{0}§7,§9{1}§7!", chunk.getX(), chunk.getZ()));
                 } else {
-                    player.sendMessage(tr("\u00a74FAILED!\u00a7e could not unload chunk at {0},{1}", chunk.getX(), chunk.getZ()));
+                    player.sendMessage(tr("§9☀ §8» §7Could not unload chunk at §9{0}§7,§9{1}§7!", chunk.getX(), chunk.getZ()));
                 }
             }
         });
@@ -39,7 +39,7 @@ public class ChunkCommand extends CompositeCommand {
             @Override
             void doChunkCommand(Player player, Chunk chunk) {
                 chunk.getWorld().loadChunk(chunk.getX(), chunk.getZ(), true);
-                player.sendMessage(tr("loaded chunk at {0},{1}", chunk.getX(), chunk.getZ()));
+                player.sendMessage(tr("§9☀ §8» §7Loaded chunk at §9{0}§7,§9{1}§7!", chunk.getX(), chunk.getZ()));
             }
         });
     }
@@ -52,7 +52,7 @@ public class ChunkCommand extends CompositeCommand {
         @Override
         public boolean execute(CommandSender commandSender, String alias, Map<String, Object> map, String... args) {
             if (!(commandSender instanceof Player)) {
-                commandSender.sendMessage(tr("only available for players"));
+                commandSender.sendMessage(tr("§9☀ §8» §7This is only available to players!"));
                 return false;
             }
             Player player = (Player) commandSender;

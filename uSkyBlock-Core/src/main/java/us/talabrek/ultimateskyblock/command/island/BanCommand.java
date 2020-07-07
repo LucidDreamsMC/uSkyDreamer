@@ -22,9 +22,9 @@ public class BanCommand extends RequireIslandCommand {
     @Override
     protected boolean doExecute(String alias, Player player, PlayerInfo pi, IslandInfo island, Map<String, Object> data, String... args) {
         if (args.length == 0) {
-            player.sendMessage(tr("\u00a7eThe following players are banned from warping to your island:"));
-            player.sendMessage(tr("\u00a74{0}", island.getBans()));
-            player.sendMessage(tr("\u00a7eTo ban/unban from your island, use /island ban <player>"));
+            player.sendMessage(tr("§9☀ §8» §7The following players are banned from warping to your island:"));
+            player.sendMessage(tr("§9☀ §8» §7{0}", island.getBans()));
+            player.sendMessage(tr("§9☀ §8» §7To ban/unban from your island, use §9/island ban <player>"));
             return true;
         } else if (args.length == 1) {
             String name = args[0];

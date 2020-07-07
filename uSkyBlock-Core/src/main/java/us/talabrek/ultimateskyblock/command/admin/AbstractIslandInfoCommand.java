@@ -39,7 +39,7 @@ public abstract class AbstractIslandInfoCommand extends AbstractPlayerInfoComman
                     doExecute(sender, playerInfo, islandInfo, subArgs);
                     return true;
                 } else {
-                    sender.sendMessage(tr("\u00a7ePlayer {0} has no island!", playerInfo.getPlayerName()));
+                    sender.sendMessage(tr("§9☀ §8» §7Player §9{0} §7has no island!", playerInfo.getPlayerName()));
                 }
             }
         } else if (sender instanceof Player && WorldGuardHandler.getIslandNameAt(((Player) sender).getLocation()) != null) {

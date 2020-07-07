@@ -21,16 +21,16 @@ public class KickCommand extends RequireIslandCommand {
     protected boolean doExecute(String alias, final Player player, PlayerInfo pi, final IslandInfo island, Map<String, Object> data, final String... args) {
         if (args.length == 1) {
             if (island == null || !island.hasPerm(player, "canKickOthers")) {
-                player.sendMessage(I18nUtil.tr("\u00a74You do not have permission to kick others from this island!"));
+                player.sendMessage(I18nUtil.tr("§9☀ §8» §7You do not have permission to kick others from this island!"));
                 return true;
             }
             String targetPlayerName = args[0];
             if (island.isLeader(targetPlayerName)) {
-                player.sendMessage(I18nUtil.tr("\u00a74You can't remove the leader from the Island!"));
+                player.sendMessage(I18nUtil.tr("§9☀ §8» §7You can't remove the leader from the Island!"));
                 return true;
             }
             if (player.getName().equalsIgnoreCase(targetPlayerName)) {
-                player.sendMessage(I18nUtil.tr("\u00a74Stop kickin' yourself!"));
+                player.sendMessage(I18nUtil.tr("§9☀ §8» §7Stop kicking yourself :("));
                 return true;
             }
 
@@ -40,11 +40,11 @@ public class KickCommand extends RequireIslandCommand {
                 PlayerInfo targetPlayerInfo = plugin.getPlayerInfo(targetPlayerName);
                 boolean isOnIsland = false;
                 if (onlineTargetPlayer != null && onlineTargetPlayer.isOnline()) {
-                    onlineTargetPlayer.sendMessage(I18nUtil.tr("\u00a74{0} has removed you from their island!", player.getDisplayName()));
+                    onlineTargetPlayer.sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7has removed you from their island!", player.getDisplayName()));
                     isOnIsland = plugin.playerIsOnIsland(onlineTargetPlayer);
                 }
                 if (Bukkit.getPlayer(island.getLeader()) != null) {
-                    Bukkit.getPlayer(island.getLeader()).sendMessage(I18nUtil.tr("\u00a74{0} has been removed from the island.", targetPlayerName));
+                    Bukkit.getPlayer(island.getLeader()).sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7has been removed from the island.", targetPlayerName));
                 }
                 island.removeMember(targetPlayerInfo);
                 if (isOnIsland && onlineTargetPlayer.isOnline()) {
@@ -56,15 +56,15 @@ public class KickCommand extends RequireIslandCommand {
                     || plugin.locationIsOnNetherIsland(player, onlineTargetPlayer.getLocation()))
                     ) {
                 if (hasPermission(onlineTargetPlayer, "usb.exempt.kick")) {
-                    onlineTargetPlayer.sendMessage(I18nUtil.tr("\u00a74{0} tried to kick you from their island!",  player.getName()));
-                    player.sendMessage(I18nUtil.tr("\u00a74{0} is exempt from being kicked.", targetPlayerName));
+                    onlineTargetPlayer.sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7tried to kick you from their island!",  player.getName()));
+                    player.sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7is exempt from being kicked.", targetPlayerName));
                     return true;
                 }
-                onlineTargetPlayer.sendMessage(I18nUtil.tr("\u00a74{0} has kicked you from their island!",  player.getName()));
-                player.sendMessage(I18nUtil.tr("\u00a74{0} has been kicked from the island.", targetPlayerName));
+                onlineTargetPlayer.sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7has kicked you from their island!",  player.getName()));
+                player.sendMessage(I18nUtil.tr("§9☀ §8» §9{0} §7has been kicked from the island.", targetPlayerName));
                 plugin.getTeleportLogic().spawnTeleport(onlineTargetPlayer, true);
             } else {
-                player.sendMessage(I18nUtil.tr("\u00a74That player is not part of your island group, and not on your island!"));
+                player.sendMessage(I18nUtil.tr("§9☀ §8» §7That player is not part of your island group, and not on your island!"));
             }
             return true;
         }

@@ -20,17 +20,17 @@ public class ToggleWarp extends RequireIslandCommand {
         if (island.hasPerm(player, "canToggleWarp")) {
             if (!island.hasWarp()) {
                 if (island.isLocked()) {
-                    player.sendMessage(tr("\u00a74Your island is locked. You must unlock it before enabling your warp."));
+                    player.sendMessage(tr("§9☀ §8» §7Your island is locked. You must unlock it before enabling your warp."));
                     return true;
                 }
-                island.sendMessageToIslandGroup(true, marktr("\u00a7b{0}\u00a7d activated the island warp."), player.getName());
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7activated the island warp."), player.getName());
                 island.setWarp(true);
             } else {
-                island.sendMessageToIslandGroup(true, marktr("\u00a7b{0}\u00a7d deactivated the island warp."), player.getName());
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7deactivated the island warp."), player.getName());
                 island.setWarp(false);
             }
         } else {
-            player.sendMessage(tr("\u00a7cYou do not have permission to enable/disable your island''s warp!"));
+            player.sendMessage(tr("§9☀ §8» §7You do not have permission to enable/disable your island''s warp!"));
         }
         return true;
     }

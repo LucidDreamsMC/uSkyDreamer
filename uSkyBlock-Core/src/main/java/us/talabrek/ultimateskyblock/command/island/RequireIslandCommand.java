@@ -43,7 +43,7 @@ public abstract class RequireIslandCommand extends RequirePlayerCommand {
                 return doExecute(alias, player, playerInfo, islandInfo, data, args);
             }
         }
-        player.sendMessage(tr("\u00a74No Island. \u00a7eUse \u00a7b/is create\u00a7e to get one"));
+        player.sendMessage(tr("§9☀ §8» §7No Island. Use §9/is create §7to get one."));
         return false;
     }
 }

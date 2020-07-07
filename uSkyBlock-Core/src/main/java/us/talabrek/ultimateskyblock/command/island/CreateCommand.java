@@ -30,16 +30,14 @@ public class CreateCommand extends RequirePlayerCommand {
         } else if (pi.getHasIsland()) {
             us.talabrek.ultimateskyblock.api.IslandInfo island = plugin.getIslandInfo(pi);
             if (island.isLeader(player)) {
-                player.sendMessage(tr("\u00a74Island found!" +
-                        "\u00a7e You already have an island. If you want a fresh island, type" +
-                        "\u00a7b /is restart\u00a7e to get one"));
+                player.sendMessage(tr("§9☀ §8» §7Island found!\n" +
+                        "§9☀ §8» §7You already have an island. If you want a fresh island, type §9/is restart§7 to get one."));
             } else {
-                player.sendMessage(tr("\u00a74Island found!" +
-                        "\u00a7e You are already a member of an island. To start your own, first" +
-                        "\u00a7b /is leave"));
+                player.sendMessage(tr("§9☀ §8» §7Island found!" +
+                        "§9☀ §8» §7You are already a member of an island. To start your own, first type §9/is leave§7."));
             }
         } else {
-            player.sendMessage(tr("\u00a7eYou can create a new island in {0,number,#} seconds.", cooldown));
+            player.sendMessage(tr("§9☀ §8» §7You can create a new island in §9{0,number,#} §7seconds.", cooldown));
         }
         return true;
     }

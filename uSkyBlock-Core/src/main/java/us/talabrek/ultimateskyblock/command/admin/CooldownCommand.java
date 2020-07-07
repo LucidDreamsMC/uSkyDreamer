@@ -32,18 +32,18 @@ public class CooldownCommand extends CompositeCommand {
                 //noinspection deprecation
                 Player p = Bukkit.getPlayer(args[0]);
                 if (p == null || !p.isOnline()) {
-                    sender.sendMessage(tr("\u00a7eThe player is not currently online"));
+                    sender.sendMessage(tr("§9☀ §8» §7The player is not currently online."));
                     return false;
                 }
                 if ("restart|biome".contains(args[1])) {
                     if (plugin.getCooldownHandler().clearCooldown(p, args[1])) {
-                        sender.sendMessage(tr("Cleared cooldown on {0} for {1}", args[1], p.getDisplayName()));
+                        sender.sendMessage(tr("§9☀ §8» §7Cleared cooldown on §9{0} §7for §9{1}§7!", args[1], p.getDisplayName()));
                     } else {
-                        sender.sendMessage(tr("No active cooldown on {0} for {1} detected!", args[1], p.getDisplayName()));
+                        sender.sendMessage(tr("§9☀ §8» §7No active cooldown on §9{0} §7for §9{1} §7detected!", args[1], p.getDisplayName()));
                     }
                     return true;
                 } else {
-                    sender.sendMessage(tr("Invalid command supplied, only restart and biome supported!"));
+                    sender.sendMessage(tr("§9☀ §8» §7Invalid command supplied, only restart and biome supported!"));
                     return false;
                 }
             }
@@ -57,16 +57,16 @@ public class CooldownCommand extends CompositeCommand {
                 //noinspection deprecation
                 Player p = Bukkit.getPlayer(args[0]);
                 if (p == null || !p.isOnline()) {
-                    sender.sendMessage(tr("\u00a7eThe player is not currently online"));
+                    sender.sendMessage(tr("§9☀ §8» §7The player is not currently online."));
                     return false;
                 }
                 if ("restart|biome".contains(args[1])) {
                     int cooldown = getCooldown(args[1]);
                     plugin.getCooldownHandler().resetCooldown(p, args[1], cooldown);
-                    sender.sendMessage(tr("\u00a7eReset cooldown on {0} for {1}\u00a7e to {2} seconds", args[1], p.getDisplayName(), cooldown));
+                    sender.sendMessage(tr("§9☀ §8» §7Reset cooldown on §9{0}§7 for §9{1}§7 to §9{2}§7 seconds!", args[1], p.getDisplayName(), cooldown));
                     return true;
                 } else {
-                    sender.sendMessage(tr("Invalid command supplied, only restart and biome supported!"));
+                    sender.sendMessage(tr("§9☀ §8» §7Invalid command supplied, only restart and biome supported!"));
                     return false;
                 }
             }
@@ -80,19 +80,19 @@ public class CooldownCommand extends CompositeCommand {
                 //noinspection deprecation
                 Player p = Bukkit.getPlayer(args[0]);
                 if (p == null || !p.isOnline()) {
-                    sender.sendMessage(tr("\u00a7eThe player is not currently online"));
+                    sender.sendMessage(tr("§9☀ §8» §7The player is not currently online"));
                     return false;
                 }
                 Map<String, Long> map = plugin.getCooldownHandler().getCooldowns(p.getUniqueId());
                 StringBuilder sb = new StringBuilder();
                 if (map != null && !map.isEmpty()) {
                     long now = System.currentTimeMillis();
-                    sb.append(tr("\u00a7eCmd Cooldown") + "\n");
+                    sb.append(tr("§9☀ §8» §7Command §8⟶ §7Cooldown") + "\n");
                     for (String cmd : map.keySet()) {
-                        sb.append(tr("\u00a7a{0} \u00a7c{1}", cmd, TimeUtil.millisAsString(map.get(cmd) - now)) + "\n");
+                        sb.append(tr("§9☀ §8» §9{0} §8⟶ §7{1}", cmd, TimeUtil.millisAsString(map.get(cmd) - now)) + "\n");
                     }
                 } else {
-                    sb.append(tr("\u00a7eNo active cooldowns for \u00a79{0}\u00a7e found.", data.get("playerName")));
+                    sb.append(tr("§9☀ §8» §7No active cooldowns for §9{0}§7 found.", data.get("playerName")));
                 }
                 sender.sendMessage(sb.toString().split("\n"));
                 return true;

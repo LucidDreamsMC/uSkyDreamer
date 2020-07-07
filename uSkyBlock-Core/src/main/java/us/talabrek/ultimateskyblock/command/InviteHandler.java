@@ -46,14 +46,14 @@ public class InviteHandler implements Listener {
             invites = new HashMap<>();
         }
         if (island.getPartySize() + invites.size() >= island.getMaxPartySize()) {
-            player.sendMessage(tr("\u00a74Your island is full, or you have too many pending invites. You can't invite anyone else."));
+            player.sendMessage(tr("§9☀ §8» §7Your island is full, or you have too many pending invites. You can't invite anyone else."));
             return;
         }
         if (oPi.getHasIsland()) {
             us.talabrek.ultimateskyblock.api.IslandInfo oIsland = plugin.getIslandInfo(oPi);
             if (oIsland.isParty() && oIsland.isLeader(otherPlayer)) {
-                player.sendMessage(tr("\u00a74That player is already leader on another island."));
-                otherPlayer.sendMessage(tr("\u00a7e{0}\u00a7e tried to invite you, but you are already in a party.", player.getDisplayName()));
+                player.sendMessage(tr("§9☀ §8» §7That player is already leader on another island."));
+                otherPlayer.sendMessage(tr("§9☀ §8» §9{0}§7 tried to invite you, but you are already in a party.", player.getDisplayName()));
                 return;
             }
         }
@@ -62,11 +62,11 @@ public class InviteHandler implements Listener {
         final Invite invite = new Invite(island.getName(), uniqueId, player.getDisplayName());
         inviteMap.put(uniqueId, invite);
         waitingInvites.put(island.getName(), invites);
-        player.sendMessage(tr("\u00a7aInvite sent to {0}", otherPlayer.getDisplayName()));
+        player.sendMessage(tr("§9☀ §8» §7Invite sent to §9{0}", otherPlayer.getDisplayName()));
         otherPlayer.sendMessage(new String[]{
-                tr("{0}\u00a7e has invited you to join their island!", player.getDisplayName()),
-                tr("\u00a7f/island [accept/reject]\u00a7e to accept or reject the invite."),
-                tr("\u00a74WARNING: You will lose your current island if you accept!")
+                tr("§9☀ §8» §9{0} §7has invited you to join their island!", player.getDisplayName()),
+                tr("§9☀ §8» §9/island [accept/reject]§7 to accept or reject the invite."),
+                tr("§9☀ §8» §7WARNING: You will lose your current island if you accept!")
         });
         long timeout = TimeUtil.secondsAsMillis(plugin.getConfig().getInt("options.party.invite-timeout", 30));
         BukkitTask timeoutTask = plugin.async(new Runnable() {
@@ -76,7 +76,7 @@ public class InviteHandler implements Listener {
             }
         }, timeout);
         invite.setTimeoutTask(timeoutTask);
-        island.sendMessageToIslandGroup(true, I18nUtil.marktr("{0}\u00a7d invited {1}"), player.getDisplayName(), otherPlayer.getDisplayName());
+        island.sendMessageToIslandGroup(true, I18nUtil.marktr("§9☀ §8» §9{0}§7 invited {1}"), player.getDisplayName(), otherPlayer.getDisplayName());
     }
 
     private synchronized boolean reject(Player player) {
@@ -87,7 +87,7 @@ public class InviteHandler implements Listener {
             }
             IslandInfo island = plugin.getIslandInfo(invite.getIslandName());
             if (island != null) {
-                island.sendMessageToIslandGroup(true, marktr("{0}\u00a7e has rejected the invitation."), player.getDisplayName());
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0}§7 has rejected the invitation."), player.getDisplayName());
             }
             if (waitingInvites.containsKey(invite.getIslandName())) {
                 waitingInvites.get(invite.getIslandName()).remove(player.getUniqueId());
@@ -101,7 +101,7 @@ public class InviteHandler implements Listener {
         UUID uuid = player.getUniqueId();
         us.talabrek.ultimateskyblock.api.IslandInfo oldIsland = plugin.getIslandInfo(player);
         if (oldIsland != null && oldIsland.isParty()) {
-            player.sendMessage(tr("\u00a74You can't use that command right now. Leave your current party first."));
+            player.sendMessage(tr("§9☀ §8» §7You can't use that command right now. Leave your current party first."));
             return false;
         }
         Invite invite = inviteMap.remove(uuid);
@@ -123,7 +123,7 @@ public class InviteHandler implements Listener {
             Runnable joinIsland = new Runnable() {
                 @Override
                 public void run() {
-                    player.sendMessage(tr("\u00a7aYou have joined an island! Use /island party to see the other members."));
+                    player.sendMessage(tr("§9☀ §8» §7You have joined an island! Use §9/island party §7to see the other members."));
                     addPlayerToParty(player, island);
                     plugin.getTeleportLogic().homeTeleport(player, true);
                     plugin.clearPlayerInventory(player);
@@ -151,7 +151,7 @@ public class InviteHandler implements Listener {
         PlayerInfo playerInfo = plugin.getPlayerInfo(player);
         island.addMember(playerInfo);
         playerInfo.save();
-        island.sendMessageToIslandGroup(true, marktr("\u00a7b{0}\u00a7d has joined your island group."), player.getDisplayName());
+        island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0}§7 has joined your island group."), player.getDisplayName());
         return true;
     }
 
@@ -176,10 +176,10 @@ public class InviteHandler implements Listener {
             if (invite != null && invite.getTimeoutTask() != null) {
                 invite.getTimeoutTask().cancel();
             }
-            islandInfo.sendMessageToIslandGroup(true, marktr("\u00a7eInvitation for {0}\u00a7e has timedout or been cancelled."), invite.getDisplayName());
+            islandInfo.sendMessageToIslandGroup(true, marktr("§9☀ §8» §7Invitation for §9{0}§7 has timed out or been cancelled."), invite.getDisplayName());
             Player player = Bukkit.getPlayer(uuid);
             if (player != null && player.isOnline()) {
-                player.sendMessage(tr("\u00a7eInvitation for {0}''s island has timedout or been cancelled.", islandInfo.getLeader()));
+                player.sendMessage(tr("§9☀ §8» §7Invitation for §9{0}§7''s island has timed out or been cancelled.", islandInfo.getLeader()));
             }
             return true;
         }
@@ -197,9 +197,9 @@ public class InviteHandler implements Listener {
     public void onAcceptEvent(AcceptEvent e) {
         if (!e.isCancelled()) {
             if (accept(e.getPlayer())) {
-                e.getPlayer().sendMessage(I18nUtil.tr("\u00a7eYou have accepted the invitation to join an island."));
+                e.getPlayer().sendMessage(I18nUtil.tr("§9☀ §8» §7You have accepted the invitation to join an island."));
             } else {
-                e.getPlayer().sendMessage(I18nUtil.tr("\u00a74You haven't been invited."));
+                e.getPlayer().sendMessage(I18nUtil.tr("§9☀ §8» §7You haven't been invited."));
             }
         }
     }
@@ -208,9 +208,9 @@ public class InviteHandler implements Listener {
     public void onRejectEvent(RejectEvent e) {
         if (!e.isCancelled()) {
             if (reject(e.getPlayer())) {
-                e.getPlayer().sendMessage(I18nUtil.tr("\u00a7eYou have rejected the invitation to join an island."));
+                e.getPlayer().sendMessage(I18nUtil.tr("§9☀ §8» §7You have rejected the invitation to join an island."));
             } else {
-                e.getPlayer().sendMessage(I18nUtil.tr("\u00a74You haven't been invited."));
+                e.getPlayer().sendMessage(I18nUtil.tr("§9☀ §8» §7You haven't been invited."));
             }
         }
     }

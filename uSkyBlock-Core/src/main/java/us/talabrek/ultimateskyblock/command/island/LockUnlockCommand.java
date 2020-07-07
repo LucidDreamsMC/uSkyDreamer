@@ -23,10 +23,10 @@ public class LockUnlockCommand extends RequireIslandCommand {
                 if (island.hasPerm(player, "canToggleLock")) {
                     island.lock(player);
                 } else {
-                    player.sendMessage(tr("\u00a74You do not have permission to lock your island!"));
+                    player.sendMessage(tr("§9☀ §8» §7You do not have permission to lock your island!"));
                 }
             } else {
-                player.sendMessage(tr("\u00a74You don't have access to this command!"));
+                player.sendMessage(tr("§9☀ §8» §7You don't have access to this command!"));
             }
             return true;
         }
@@ -35,10 +35,10 @@ public class LockUnlockCommand extends RequireIslandCommand {
                 if (island.hasPerm(player, "canToggleLock")) {
                     island.unlock(player);
                 } else {
-                    player.sendMessage(tr("\u00a74You do not have permission to unlock your island!"));
+                    player.sendMessage(tr("§9☀ §8» §7You do not have permission to unlock your island!"));
                 }
             } else {
-                player.sendMessage(tr("\u00a74You don't have access to this command!"));
+                player.sendMessage(tr("§9☀ §8» §7You don't have access to this command!"));
             }
             return true;
         }

@@ -28,17 +28,17 @@ public class NBTCommand extends CompositeCommand {
                     ItemStack itemStack = player.getInventory().getItemInHand();
                     if (itemStack != null) {
                         String[] msgs = new String[]{
-                                tr("\u00a7eInfo for \u00a79{0}", ItemStackUtil.asString(itemStack)),
-                                tr("\u00a77 - name: \u00a79{0}", VaultHandler.getItemName(itemStack)),
-                                tr("\u00a77 - nbttag: \u00a79{0}", NBTUtil.getNBTTag(itemStack))
+                                tr("§9☀ §8» §7Info for §9{0}", ItemStackUtil.asString(itemStack)),
+                                tr("§9☀ §8» §7Name: §9{0}", VaultHandler.getItemName(itemStack)),
+                                tr("§9☀ §8» §7Nbttag: §9{0}", NBTUtil.getNBTTag(itemStack))
                         };
                         player.sendMessage(msgs);
                     } else {
-                        player.sendMessage(tr("\u00a7cNo item in hand!"));
+                        player.sendMessage(tr("§9☀ §8» §7No item in hand!"));
                     }
                     return true;
                 }
-                sender.sendMessage(tr("\u00a7eCan only be executed as a player"));
+                sender.sendMessage(tr("§9☀ §8» §7Can only be executed as a player"));
                 return false;
             }
         });
@@ -53,14 +53,14 @@ public class NBTCommand extends CompositeCommand {
                             String nbtTag = join(args);
                             itemStack = NBTUtil.setNBTTag(itemStack, nbtTag);
                             player.getInventory().setItemInHand(itemStack);
-                            player.sendMessage(tr("\u00a7eSet \u00a79{0}\u00a7e to \u00a7c{1}", nbtTag, itemStack));
+                            player.sendMessage(tr("§9☀ §8» §7Set §9{0}§7 to §9{1}§7!", nbtTag, itemStack));
                         } else {
-                            player.sendMessage(tr("\u00a7cNo item in hand!"));
+                            player.sendMessage(tr("§9☀ §8» §7No item in hand!"));
                         }
                         return true;
                     }
                 }
-                sender.sendMessage(tr("\u00a7eCan only be executed as a player"));
+                sender.sendMessage(tr("§9☀ §8» §7Can only be executed as a player!"));
                 return false;
             }
         });
@@ -75,14 +75,14 @@ public class NBTCommand extends CompositeCommand {
                             String nbtTag = join(args);
                             itemStack = NBTUtil.addNBTTag(itemStack, nbtTag);
                             player.getInventory().setItemInHand(itemStack);
-                            player.sendMessage(tr("\u00a7eAdded \u00a79{0}\u00a7e to \u00a7c{1}", nbtTag, itemStack));
+                            player.sendMessage(tr("§9☀ §8» §7Added §9{0}§7 to §9{1}", nbtTag, itemStack));
                         } else {
-                            player.sendMessage(tr("\u00a7cNo item in hand!"));
+                            player.sendMessage(tr("§9☀ §8» §7No item in hand!"));
                         }
                         return true;
                     }
                 }
-                sender.sendMessage(tr("\u00a7eCan only be executed as a player"));
+                sender.sendMessage(tr("§9☀ §8» §7Can only be executed as a player"));
                 return false;
             }
         });

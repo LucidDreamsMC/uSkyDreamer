@@ -27,7 +27,7 @@ public abstract class AbstractPlayerInfoCommand extends AbstractCommand {
                 doExecute(sender, playerInfo);
                 return true;
             }
-            sender.sendMessage(tr("\u00a7eInvalid player {0} supplied.", args[0]));
+            sender.sendMessage(tr("§9☀ §8» §7Invalid player §9{0} §7supplied.", args[0]));
         }
         return false;
     }

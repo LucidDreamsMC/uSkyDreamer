@@ -25,7 +25,7 @@ public abstract class RequirePlayerCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(I18nUtil.tr("\u00a74This command can only be executed by a player"));
+            sender.sendMessage(I18nUtil.tr("§9☀ §8» §7This command can only be executed by a player"));
             return false;
         }
         Player player = (Player) sender;

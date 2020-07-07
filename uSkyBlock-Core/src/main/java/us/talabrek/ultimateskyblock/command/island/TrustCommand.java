@@ -23,36 +23,36 @@ public class TrustCommand extends RequireIslandCommand {
     @Override
     protected boolean doExecute(final String alias, final Player player, final PlayerInfo pi, final IslandInfo island, Map<String, Object> data, String... args) {
         if (args.length == 0) {
-            player.sendMessage(tr("\u00a7eThe following players are trusted on your island:"));
-            player.sendMessage(tr("\u00a74{0}", island.getTrustees()));
-            player.sendMessage(tr("\u00a7eThe following leaders trusts you:"));
-            player.sendMessage(tr("\u00a74{0}", getLeaderNames(pi)));
-            player.sendMessage(tr("\u00a7eTo trust/untrust from your island, use /island trust <player>"));
+            player.sendMessage(tr("§9☀ §8» §7The following players are trusted on your island:"));
+            player.sendMessage(tr("§9☀ §8» §9{0}", island.getTrustees()));
+            player.sendMessage(tr("§9☀ §8» §7The following leaders trusts you:"));
+            player.sendMessage(tr("§9☀ §8» §9{0}", getLeaderNames(pi)));
+            player.sendMessage(tr("§9☀ §8» §7To trust/untrust from your island, use §9/island trust <player>"));
             return true;
         } else if (args.length == 1) {
             final String name = args[0];
             if (island.getMembers().contains(name)) {
-                player.sendMessage(tr("\u00a74Members are already trusted!"));
+                player.sendMessage(tr("§9☀ §8» §7Members are already trusted!"));
                 return true;
             }
             //noinspection deprecation
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(name);
             if (!offlinePlayer.hasPlayedBefore() && !offlinePlayer.isOnline()) {
-                player.sendMessage(tr("\u00a74Unknown player {0}", name));
+                player.sendMessage(tr("§9☀ §8» §7Unknown player {0}", name));
                 return true;
             }
             if (alias.equals("trust")) {
                 island.trustPlayer(offlinePlayer, player);
                 if (offlinePlayer.isOnline()) {
-                    offlinePlayer.getPlayer().sendMessage(tr("\u00a7eYou are now trusted on \u00a74{0}''s \u00a7eisland.", pi.getDisplayName()));
+                    offlinePlayer.getPlayer().sendMessage(tr("§9☀ §8» §7You are now trusted on §9{0}§7's island.", pi.getDisplayName()));
                 }
-                island.sendMessageToIslandGroup(true, marktr("\u00a7a{0} trusted {1} on the island"), player.getName(), name);
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7trusted §9{1} §7on the island."), player.getName(), name);
             } else {
                 island.untrustPlayer(offlinePlayer, player);
                 if (offlinePlayer.isOnline()) {
-                    offlinePlayer.getPlayer().sendMessage(tr("\u00a7eYou are no longer trusted on \u00a74{0}''s \u00a7eisland.", pi.getDisplayName()));
+                    offlinePlayer.getPlayer().sendMessage(tr("§9☀ §8» §7You are no longer trusted on §9{0}§7's island.", pi.getDisplayName()));
                 }
-                island.sendMessageToIslandGroup(true, marktr("\u00a7c{0} revoked trust in {1} on the island"), player.getName(), name);
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7revoked trust in §9{1} §7on the island"), player.getName(), name);
             }
             WorldGuardHandler.updateRegion(island);
             return true;

@@ -36,16 +36,16 @@ public class MakeLeaderCommand extends AbstractCommand {
                     PlayerInfo newLeader = plugin.getPlayerInfo(playerName);
 
                     if (currentLeader == null || !currentLeader.getHasIsland()) {
-                        sender.sendMessage(I18nUtil.tr("\u00a74Player {0} has no island to transfer!", islandPlayerName));
+                        sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Player §9{0} §7has no island to transfer!", islandPlayerName));
                         return;
                     }
                     IslandInfo islandInfo = plugin.getIslandInfo(currentLeader);
                     if (islandInfo == null) {
-                        sender.sendMessage(I18nUtil.tr("\u00a74Player {0} has no island to transfer!", islandPlayerName));
+                        sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Player §9{0} §7has no island to transfer!", islandPlayerName));
                         return;
                     }
                     if (newLeader != null && newLeader.getHasIsland() && !newLeader.locationForParty().equals(islandInfo.getName())) {
-                        sender.sendMessage(I18nUtil.tr("\u00a7ePlayer \u00a7d{0}\u00a7e already has an island.\u00a7eUse \u00a7d/usb island remove <name>\u00a7e to remove him first.", playerName));
+                        sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Player §9{0} §7already has an island. Use §9/usb island remove <name> §7to remove him first.", playerName));
                         return;
                     }
                     newLeader.setJoinParty(islandInfo.getIslandLocation());
@@ -58,7 +58,7 @@ public class MakeLeaderCommand extends AbstractCommand {
                     newLeader.save();
                     WorldGuardHandler.updateRegion(islandInfo);
                     plugin.getEventLogic().fireIslandLeaderChangedEvent(islandInfo, currentLeader, newLeader);
-                    islandInfo.sendMessageToIslandGroup(true, marktr("\u00a7bLeadership transferred by {0}\u00a7b to {1}"), sender.getName(), playerName);
+                    islandInfo.sendMessageToIslandGroup(true, marktr("§9☀ §8» §7Leadership transferred by §9{0} §7to §9{1}§7!"), sender.getName(), playerName);
                 }
             });
             return true;

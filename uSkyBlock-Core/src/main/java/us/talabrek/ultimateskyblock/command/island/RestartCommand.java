@@ -22,19 +22,19 @@ public class RestartCommand extends RequireIslandCommand {
     protected boolean doExecute(String alias, Player player, PlayerInfo pi, IslandInfo island, Map<String, Object> data, String... args) {
         if (island.getPartySize() > 1) {
             if (!island.isLeader(player)) {
-                player.sendMessage(tr("\u00a74Only the owner may restart this island. Leave this island in order to start your own (/island leave)."));
+                player.sendMessage(tr("§9☀ §8» §7Only the owner may restart this island. Leave this island in order to start your own (§9/island leave§7)."));
             } else {
-                player.sendMessage(tr("\u00a7eYou must remove all players from your island before you can restart it (/island kick <player>). See a list of players currently part of your island using /island party."));
+                player.sendMessage(tr("§9☀ §8» §7You must remove all players from your island before you can restart it (§9/island kick <player>§7). See a list of players currently part of your island using §9/island party§7."));
             }
             return true;
         }
         int cooldown = plugin.getCooldownHandler().getCooldown(player, "restart");
         if (cooldown > 0) {
-            player.sendMessage(tr("\u00a7cYou can restart your island in {0} seconds.", cooldown));
+            player.sendMessage(tr("§9☀ §8» §7You can restart your island in §9{0}§7 seconds.", cooldown));
             return true;
         } else {
             if (pi.isIslandGenerating()) {
-                player.sendMessage(tr("\u00a7cYour island is in the process of generating, you cannot restart now."));
+                player.sendMessage(tr("§9☀ §8» §7Your island is in the process of generating, you cannot restart now."));
                 return true;
             }
             if (plugin.getConfig().getBoolean("island-schemes-enabled", true)) {
@@ -49,7 +49,7 @@ public class RestartCommand extends RequireIslandCommand {
                 plugin.getServer().getPluginManager().callEvent(new RestartIslandEvent(player, pi.getIslandLocation(), cSchem));
                 return true;
             } else {
-                player.sendMessage(tr("\u00a7eNOTE: Your entire island and all your belongings will be RESET!"));
+                player.sendMessage(tr("§9☀ §8» §7NOTE: Your entire island and all your belongings will be RESET!"));
                 return true;
             }
         }

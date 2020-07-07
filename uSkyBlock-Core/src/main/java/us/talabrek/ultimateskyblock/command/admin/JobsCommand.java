@@ -36,16 +36,16 @@ public class JobsCommand extends CompositeCommand {
             @Override
             public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
                 StringBuilder sb = new StringBuilder();
-                sb.append(tr("\u00a79Job Statistics") + "\n");
-                sb.append(tr("\u00a77----------------") + "\n");
+                sb.append(tr("§9☀ §8» §7Job Statistics") + "\n");
+                sb.append(tr("§9☀ §8» §7----------------") + "\n");
                 Map<String, JobManager.Stats> stats = JobManager.getStats();
                 List<String> jobs = new ArrayList<>(stats.keySet());
                 Collections.sort(jobs);
-                sb.append(String.format("\u00a77%-6s %-8s %-8s %-8s %-8s %-8s %-20s\n",
+                sb.append(String.format("§9☀ §8» §7%-6s %-8s %-8s %-8s %-8s %-8s %-20s\n",
                         tr("#"), tr("ms/job"), tr("ms/tick"), tr("ticks"), tr("act"), tr("time"), tr("name")));
                 for (String jobName : jobs) {
                     JobManager.Stats stat = stats.get(jobName);
-                    sb.append(String.format("\u00a77%6d %8s %8s %8d \u00a7c%8d \u00a77%8s \u00a79%-20s \n", stat.getJobs(),
+                    sb.append(String.format("§9☀ §8» §7%6d %8s %8s %8d %8d %8s %-20s \n", stat.getJobs(),
                             TimeUtil.millisAsShort(Math.round(stat.getAvgMsActivePerJob())),
                             TimeUtil.millisAsShort(Math.round(stat.getAvgMsActivePerTick())),
                             stat.getTicks(),

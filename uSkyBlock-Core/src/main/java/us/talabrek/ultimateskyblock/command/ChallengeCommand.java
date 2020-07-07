@@ -33,21 +33,21 @@ public class ChallengeCommand extends BaseCommandExecutor {
             return true;
         }
         if (!(sender instanceof Player)) {
-            sender.sendMessage(tr("\u00a7cCommand only available for players."));
+            sender.sendMessage(("§9☀ §8» §7Command only available for players."));
             return false;
         }
         if (!plugin.getChallengeLogic().isEnabled()) {
-            sender.sendMessage(tr("\u00a7eChallenges has been disabled. Contact an administrator."));
+            sender.sendMessage(tr("§9☀ §8» §7Challenges has been disabled. Contact an administrator."));
             return false;
         }
         Player player = (Player) sender;
         if (!plugin.getWorldManager().isSkyAssociatedWorld(player.getWorld())) {
-            player.sendMessage(tr("\u00a74You can only submit challenges in the skyblock world!"));
+            player.sendMessage(tr("§9☀ §8» §7You can only submit challenges in the skyblock world!"));
             return true;
         }
         PlayerInfo playerInfo = plugin.getPlayerInfo(player);
         if (!playerInfo.getHasIsland()) {
-            player.sendMessage(tr("\u00a74You can only submit challenges when you have an island!"));
+            player.sendMessage(tr("§9☀ §8» §7You can only submit challenges when you have an island!"));
             return true;
         }
         if (args.length == 0) {

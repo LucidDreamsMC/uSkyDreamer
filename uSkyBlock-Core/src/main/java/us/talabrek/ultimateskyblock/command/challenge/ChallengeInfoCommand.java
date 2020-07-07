@@ -30,7 +30,7 @@ public class ChallengeInfoCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(tr("\u00a7cCommand only available for players."));
+            sender.sendMessage(tr("§9☀ §8» §7Command only available for players."));
             return false;
         }
         String challengeName = "";
@@ -43,9 +43,9 @@ public class ChallengeInfoCommand extends AbstractCommand {
         Challenge challenge = challengeLogic.getChallenge(challengeName);
         PlayerInfo playerInfo = plugin.getPlayerInfo(player);
         if (challenge != null && challenge.getRank().isAvailable(playerInfo)) {
-            player.sendMessage("\u00a7eChallenge Name: " + ChatColor.WHITE + challengeName.toLowerCase());
+            player.sendMessage("§9☀ §8» §7Challenge Name: " + ChatColor.WHITE + challengeName.toLowerCase());
             if (challengeLogic.getRanks().size() > 1) {
-                player.sendMessage(tr("\u00a7eRank: ") + ChatColor.WHITE + challenge.getRank());
+                player.sendMessage(tr("§9☀ §8» §7Rank: ") + ChatColor.WHITE + challenge.getRank());
             }
             ChallengeCompletion completion = playerInfo.getChallenge(challengeName);
             if (completion.getTimesCompleted() > 0 && !challenge.isRepeatable()) {

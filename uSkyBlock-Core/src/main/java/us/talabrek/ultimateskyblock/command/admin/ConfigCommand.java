@@ -35,9 +35,9 @@ public class ConfigCommand extends CompositeCommand {
                     String searchTerms = String.join(" ", args);
                     List<String> results = config.getKeys(true).stream()
                             .filter(f -> f.contains(searchTerms))
-                            .map(m -> tr("\u00a79{0}\u00a78: \u00a7e{1}", m.replace(searchTerms, tr("\u00a7c{0}\u00a79", searchTerms)), ConfigCommand.toString(config, m)))
+                            .map(m -> tr("§9{0} §8» §7{1}", m.replace(searchTerms, tr("§7{0}", searchTerms)), ConfigCommand.toString(config, m)))
                             .collect(Collectors.toList());
-                    results.add(0, tr("Found the following matching {0}:", searchTerms));
+                    results.add(0, tr("§9☀ §8» §7Found the following matching §9{0}:", searchTerms));
                     commandSender.sendMessage(results.toArray(new String[0]));
                     return true;
                 }
@@ -49,11 +49,11 @@ public class ConfigCommand extends CompositeCommand {
 
     private static String toString(YmlConfiguration config, String key) {
         if (config.isConfigurationSection(key)) {
-            return tr("\u00a7a<section>");
+            return tr("<section>");
         } else if (config.isDouble(key)) {
-            return tr("\u00a73{0,number,#.##}", config.getDouble(key));
+            return tr("{0,number,#.##}", config.getDouble(key));
         } else if (config.isBoolean(key)) {
-            return tr("\u00a72{0}", config.getBoolean(key));
+            return tr("{0}", config.getBoolean(key));
         } else if (config.isList(key)) {
             return "\n - " + String.join("\n - ", config.getStringList(key));
         }
@@ -81,7 +81,7 @@ public class ConfigCommand extends CompositeCommand {
                 if (CONFIGS.contains(args[0])) {
                     configName = args[0];
                 } else {
-                    sender.sendMessage(tr("\u00a7eInvalid configuration name"));
+                    sender.sendMessage(tr("§9☀ §8» §7Invalid configuration name"));
                     return false;
                 }
             }

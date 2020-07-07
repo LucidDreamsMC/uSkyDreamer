@@ -49,7 +49,7 @@ public class DebugCommand extends CompositeCommand {
                 } else if (alias.equals("enable")) {
                     enableLogging(sender, plugin);
                 } else {
-                    sender.sendMessage(I18nUtil.tr("\u00a74Logging wasn't active, so you can't disable it!"));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Logging wasn't active, so you can't disable it!"));
                 }
                 return true;
             }
@@ -59,9 +59,9 @@ public class DebugCommand extends CompositeCommand {
             public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
                 if (logHandler != null) {
                     logHandler.flush();
-                    sender.sendMessage(I18nUtil.tr("\u00a7eLog-file has been flushed."));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Log-file has been flushed."));
                 } else {
-                    sender.sendMessage(I18nUtil.tr("\u00a74Logging is not enabled, use \u00a7d/usb debug enable"));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Logging is not enabled, use §9/usb debug enable§7."));
                 }
                 return true;
             }
@@ -77,10 +77,10 @@ public class DebugCommand extends CompositeCommand {
             Level level = Level.parse(arg.toUpperCase());
             log.setLevel(level);
             uSkyBlock.getInstance().getLogger().setLevel(level);
-            sender.sendMessage("\u00a7eSet debug-level to " + level);
+            sender.sendMessage("§9☀ §8» §7Set debug-level to " + level);
             enableLogging(sender, uSkyBlock.getInstance());
         } catch (Exception e) {
-            sender.sendMessage(I18nUtil.tr("\u00a74Invalid argument, try INFO, FINE, FINER, FINEST"));
+            sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Invalid argument, try INFO, FINE, FINER, FINEST"));
         }
     }
 
@@ -90,7 +90,7 @@ public class DebugCommand extends CompositeCommand {
             uSkyBlock.getInstance().getLogger().removeHandler(logHandler);
             logHandler.close();
             if (sender != null) {
-                sender.sendMessage(I18nUtil.tr("\u00a7eLogging disabled!"));
+                sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Logging disabled!"));
             }
         }
         logHandler = null;
@@ -111,10 +111,10 @@ public class DebugCommand extends CompositeCommand {
             plugin.getLogger().addHandler(logHandler);
             Level level = log.getLevel() != null ? log.getLevel() : Level.FINER;
             log.log(level, FormatUtil.stripFormatting(plugin.getVersionInfo(true)));
-            sender.sendMessage("\u00a7eLogging to " + logFile);
+            sender.sendMessage("§9☀ §8» §7Logging to " + logFile);
         } catch (IOException e) {
             log.log(Level.WARNING, "Unable to enable logging", e);
-            sender.sendMessage("\u00a74Unable to enable logging: " + e.getMessage());
+            sender.sendMessage("§9☀ §8» §7Unable to enable logging: " + e.getMessage());
         }
     }
 

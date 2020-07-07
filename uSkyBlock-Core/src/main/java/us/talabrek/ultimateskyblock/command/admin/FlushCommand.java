@@ -22,7 +22,7 @@ public class FlushCommand extends AbstractCommand {
         long flushedIslands = plugin.getIslandLogic().flushCache();
         long flushedPlayers = plugin.getPlayerLogic().flushCache();
         long flushedChallenges = plugin.getChallengeLogic().flushCache();
-        sender.sendMessage(tr("\u00a7eFlushed \u00a7a{0} islands\u00a7e, \u00a7b{1} players and \u00a76{2} challenge-completions.", flushedIslands, flushedPlayers, flushedChallenges));
+        sender.sendMessage(tr("§9☀ §8» §7Flushed §9{0} §7islands, §9{1} §7players and §9{2} §7challenge-completions.", flushedIslands, flushedPlayers, flushedChallenges));
         return true;
     }
 }

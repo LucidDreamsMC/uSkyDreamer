@@ -40,11 +40,11 @@ public class AdminChallengeCommand extends CompositeCommand {
                 String challenge = completion.getName();
                 String playerName = pi.getPlayerName();
                 if (completion.getTimesCompleted() == 0) {
-                    sender.sendMessage(I18nUtil.tr("\u00a74Challenge has never been completed"));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Challenge has never been completed."));
                 } else {
                     pi.resetChallenge(challenge);
                     pi.save();
-                    sender.sendMessage(I18nUtil.tr("\u00a7echallenge: {0} has been reset for {1}", challenge, playerName));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7challenge: §9{0} §7has been reset for §9{1}§7!", challenge, playerName));
                 }
             }
         });
@@ -55,7 +55,7 @@ public class AdminChallengeCommand extends CompositeCommand {
                 if (playerInfo != null) {
                     playerInfo.resetAllChallenges();
                     playerInfo.save();
-                    sender.sendMessage(I18nUtil.tr("\u00a7e{0} has had all challenges reset.", playerInfo.getPlayerName()));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §9{0}§7 has had all challenges reset.", playerInfo.getPlayerName()));
                     return true;
                 }
                 return false;
@@ -75,7 +75,7 @@ public class AdminChallengeCommand extends CompositeCommand {
             public boolean execute(CommandSender commandSender, String alias, Map<String, Object> data, String... args) {
                 PlayerInfo playerInfo = (PlayerInfo) data.get("playerInfo");
                 if (playerInfo == null) {
-                    commandSender.sendMessage(I18nUtil.tr("\u00a74No player named {0} was found!", data.get("player")));
+                    commandSender.sendMessage(I18nUtil.tr("§9☀ §8» §7No player named §9{0}§7 was found!", data.get("player")));
                     return false;
                 }
                 if (commandSender instanceof Player) {
@@ -93,11 +93,11 @@ public class AdminChallengeCommand extends CompositeCommand {
     private void completeChallenge(CommandSender sender, PlayerInfo playerInfo, String challengeName) {
         ChallengeCompletion completion = playerInfo.getChallenge(challengeName);
         if (completion.getTimesCompleted() > 0) {
-            sender.sendMessage(I18nUtil.tr("\u00a74Challenge {0} has already been completed", challengeName));
+            sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Challenge §9{0}§7 has already been completed.", challengeName));
         } else {
             playerInfo.completeChallenge(challengeName, true);
             playerInfo.save();
-            sender.sendMessage(I18nUtil.tr("\u00a7eChallenge {0} has been completed for {1}", challengeName, playerInfo.getPlayerName()));
+            sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Challenge §9{0}§7 has been completed for §9{1}§7!", challengeName, playerInfo.getPlayerName()));
         }
     }
 
@@ -128,10 +128,10 @@ public class AdminChallengeCommand extends CompositeCommand {
                     doExecute(sender, playerInfo, completion);
                     return true;
                 } else {
-                    sender.sendMessage(I18nUtil.tr("\u00a74No challenge named {0} was found!", args[0]));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7No challenge named §9{0}§7 was found!", args[0]));
                 }
             } else {
-                sender.sendMessage(I18nUtil.tr("\u00a74No player named {0} was found!", data.get("player")));
+                sender.sendMessage(I18nUtil.tr("§9☀ §8» §7No player named §9{0}§7 was found!", data.get("player")));
             }
             return false;
         }
@@ -150,13 +150,13 @@ public class AdminChallengeCommand extends CompositeCommand {
                 String rankName = FormatUtil.join(Arrays.asList(args), " ");
                 List<Challenge> challenges = plugin.getChallengeLogic().getChallengesForRank(rankName);
                 if (challenges == null || challenges.isEmpty()) {
-                    sender.sendMessage(I18nUtil.tr("\u00a74No rank named {0} was found!", rankName));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7No rank named §9{0}§7 was found!", rankName));
                 } else {
                     doExecute(sender, playerInfo, rankName, challenges);
                     return true;
                 }
             } else {
-                sender.sendMessage(I18nUtil.tr("\u00a74No player named {0} was found!", data.get("player")));
+                sender.sendMessage(I18nUtil.tr("§9☀ §8» §7No player named §9{0}§7 was found!", data.get("player")));
             }
             return false;
         }

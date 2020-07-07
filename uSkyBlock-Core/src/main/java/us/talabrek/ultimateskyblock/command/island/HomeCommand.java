@@ -18,7 +18,7 @@ public class HomeCommand extends RequireIslandCommand {
     @Override
     protected boolean doExecute(String alias, Player player, PlayerInfo pi, IslandInfo island, Map<String, Object> data, String... args) {
         if (pi.isIslandGenerating()) {
-            player.sendMessage(I18nUtil.tr("\u00a7cYour island is in the process of generating, you cannot teleport home right now."));
+            player.sendMessage(I18nUtil.tr("§9☀ §8» §7Your island is in the process of generating, you cannot teleport home right now."));
             return true;
         }
         if (pi.getHomeLocation() == null) {

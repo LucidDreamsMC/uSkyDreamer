@@ -37,9 +37,9 @@ public class PartyCommand extends CompositeCommand {
                 IslandInfo islandInfo = plugin.getIslandInfo((Player) sender);
                 Collection<String> pendingInvitesAsNames = inviteHandler.getPendingInvitesAsNames(islandInfo);
                 if (pendingInvitesAsNames == null || pendingInvitesAsNames.isEmpty()) {
-                    sender.sendMessage(I18nUtil.tr("\u00a7eNo pending invites"));
+                    sender.sendMessage(I18nUtil.tr("§9☀ §8» §7No pending invites"));
                 } else {
-                    sender.sendMessage("\u00a7ePending invites: " + pendingInvitesAsNames);
+                    sender.sendMessage("§9☀ §8» §7Pending invites: " + pendingInvitesAsNames);
                 }
                 return true;
             }
@@ -53,14 +53,14 @@ public class PartyCommand extends CompositeCommand {
                         public void run() {
                             IslandInfo islandInfo = plugin.getIslandInfo((Player) sender);
                             if (!islandInfo.isLeader((Player) sender) || !islandInfo.hasPerm(sender.getName(), "canInviteOthers")) {
-                                sender.sendMessage(I18nUtil.tr("\u00a74You don't have permissions to uninvite players."));
+                                sender.sendMessage(I18nUtil.tr("§9☀ §8» §7You don't have permissions to uninvite players."));
                                 return;
                             }
                             String playerName = args[0];
                             if (inviteHandler.uninvite(islandInfo, playerName)) {
-                                sender.sendMessage("\u00a7eSuccessfully withdrew invite for " + playerName);
+                                sender.sendMessage("§9☀ §8» §7Successfully withdrew invite for " + playerName);
                             } else {
-                                sender.sendMessage("\u00a74No pending invite found for " + playerName);
+                                sender.sendMessage("§9☀ §8» §7No pending invite found for " + playerName);
                             }
                         }
                     });
@@ -74,13 +74,13 @@ public class PartyCommand extends CompositeCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(I18nUtil.tr("\u00a74This command can only be executed by a player"));
+            sender.sendMessage(I18nUtil.tr("§9☀ §8» §7This command can only be executed by a player"));
             return false;
         }
         Player player = (Player) sender;
         PlayerInfo playerInfo = plugin.getPlayerInfo(player);
         if (playerInfo == null || !playerInfo.getHasIsland()) {
-            player.sendMessage(I18nUtil.tr("\u00a74No Island. \u00a7eUse \u00a7b/is create\u00a7e to get one"));
+            player.sendMessage(I18nUtil.tr("§9☀ §8» §7No Island. Use §9/is create §7to get one"));
             return true;
         }
         if (args.length == 0) {

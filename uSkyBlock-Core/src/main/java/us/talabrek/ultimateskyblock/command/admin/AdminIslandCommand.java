@@ -38,7 +38,7 @@ public class AdminIslandCommand extends CompositeCommand {
                 if (args.length == 1) {
                     PlayerInfo playerInfo = plugin.getPlayerInfo(args[0]);
                     if (playerInfo == null) {
-                        sender.sendMessage(String.format("\u00a74Could not locate an island for player %s!", args[0]));
+                        sender.sendMessage(String.format("§9☀ §8» §7Could not locate an island for player %s!", args[0]));
                         return false;
                     }
                     deleteIsland(sender, playerInfo);
@@ -49,12 +49,12 @@ public class AdminIslandCommand extends CompositeCommand {
                         if (plugin.deleteEmptyIsland(islandName, new Runnable() {
                             @Override
                             public void run() {
-                                sender.sendMessage(tr("\u00a79Deleted abandoned island at your current location."));
+                                sender.sendMessage(tr("§9☀ §8» §7Deleted abandoned island at your current location."));
                             }
                         })) {
                             return true;
                         } else {
-                            sender.sendMessage(tr("\u00a74Island at this location has members!\n\u00a7eUse \u00a79/usb island delete <name>\u00a7e to delete it."));
+                            sender.sendMessage(tr("§9☀ §8» §7Island at this location has members!\nUse §9/usb island delete <name> §7to delete it."));
                         }
                     }
                 }
@@ -83,13 +83,13 @@ public class AdminIslandCommand extends CompositeCommand {
                     if (playerInfo != null) {
                         islandInfo.addMember(playerInfo);
                         playerInfo.save();
-                        islandInfo.sendMessageToIslandGroup(true, marktr("\u00a7b{0}\u00a7d has joined your island group."), playerInfo.getDisplayName());
+                        islandInfo.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7has joined your island group."), playerInfo.getDisplayName());
                         return true;
                     } else {
-                        sender.sendMessage(tr("\u00a74No player named {0} found!", args[0]));
+                        sender.sendMessage(tr("§9☀ §8» §7No player named §9{0} §7found!", args[0]));
                     }
                 } else {
-                    sender.sendMessage(tr("\u00a74No valid island provided, either stand within one, or provide an island name"));
+                    sender.sendMessage(tr("§9☀ §8» §7No valid island provided, either stand within one, or provide an island name"));
                 }
                 return false;
             }
@@ -106,7 +106,7 @@ public class AdminIslandCommand extends CompositeCommand {
                 if (args.length == 2) {
                     PlayerInfo playerInfo = plugin.getPlayerInfo(args[0]);
                     if (playerInfo == null || !playerInfo.getHasIsland()) {
-                        sender.sendMessage(tr("\u00a74That player has no island."));
+                        sender.sendMessage(tr("§9☀ §8» §7That player has no island."));
                         return false;
                     }
                     setBiome(sender, playerInfo, plugin.getIslandInfo(playerInfo), args[1]);
@@ -119,7 +119,7 @@ public class AdminIslandCommand extends CompositeCommand {
                     }
                     IslandInfo islandInfo = plugin.getIslandInfo(islandName);
                     if (islandInfo == null) {
-                        sender.sendMessage(tr("\u00a74No valid island at your location"));
+                        sender.sendMessage(tr("§9☀ §8» §7No valid island at your location"));
                         return false;
                     }
                     setBiome(sender, islandInfo, biome.name());
@@ -143,16 +143,16 @@ public class AdminIslandCommand extends CompositeCommand {
                     islandInfo = plugin.getIslandInfo(playerInfo);
                 }
                 if (islandInfo == null) {
-                    sender.sendMessage(tr("\u00a74Error! \u00a79No valid island found for purging."));
+                    sender.sendMessage(tr("§9☀ §8» §7No valid island found for purging."));
                     return false;
                 } else {
                     String islandName = islandInfo.getName();
                     if (sender instanceof Player && confirmHandler.checkCommand((Player) sender, cmd)) {
                         plugin.getIslandLogic().purge(islandName);
-                        sender.sendMessage(tr("\u00a7cPURGE: \u00a79Purged island at {0}", islandName));
+                        sender.sendMessage(tr("§9☀ §8» §7Purged island at {0}", islandName));
                     } else if (!(sender instanceof Player)) {
                         plugin.getIslandLogic().purge(islandName);
-                        sender.sendMessage(tr("\u00a7cPURGE: \u00a79Purged island at {0}", islandName));
+                        sender.sendMessage(tr("§9☀ §8» §7Purged island at {0}", islandName));
                     }
                 }
                 return true;
@@ -166,9 +166,9 @@ public class AdminIslandCommand extends CompositeCommand {
                 if (islandInfo != null) {
                     islandInfo.setIgnore(!islandInfo.ignore());
                     if (islandInfo.ignore()) {
-                        sender.sendMessage(tr("\u00a7cSet {0}s island to be ignored on top-ten and purge.", islandInfo.getLeader()));
+                        sender.sendMessage(tr("§9☀ §8» §7Set §9{0}§7s island to be ignored on top-ten and purge.", islandInfo.getLeader()));
                     } else {
-                        sender.sendMessage(tr("\u00a7cRemoved ignore-flag of {0}s island, it will now show up on top-ten and purge.", islandInfo.getLeader()));
+                        sender.sendMessage(tr("§9☀ §8» §7Removed ignore-flag of §9{0}§7s island, it will now show up on top-ten and purge.", islandInfo.getLeader()));
                     }
                 }
             }
@@ -179,10 +179,10 @@ public class AdminIslandCommand extends CompositeCommand {
 
     private void removePlayerFromIsland(CommandSender sender, PlayerInfo playerInfo, IslandInfo islandInfo) {
         if (playerInfo == null) {
-            sender.sendMessage(tr("\u00a74No valid player-name supplied."));
+            sender.sendMessage(tr("§9☀ §8» §7No valid player-name supplied."));
             return;
         }
-        sender.sendMessage(tr("Removing {0} from island", playerInfo.getPlayerName()));
+        sender.sendMessage(tr("§9☀ §8» §7Removing §9{0} §7from island", playerInfo.getPlayerName()));
         islandInfo.removeMember(playerInfo);
         playerInfo.save();
     }
@@ -190,43 +190,43 @@ public class AdminIslandCommand extends CompositeCommand {
     private void setBiome(CommandSender sender, IslandInfo islandInfo, String biome) {
         if (uSkyBlock.getInstance().setBiome(islandInfo.getIslandLocation(), biome)) {
             islandInfo.setBiome(biome);
-            sender.sendMessage(tr("\u00a7eChanged biome of {0}s island to {1}.", islandInfo.getLeader(), biome));
+            sender.sendMessage(tr("§9☀ §8» §7Changed biome of §9{0}§7s island to §9{1}§7.", islandInfo.getLeader(), biome));
         } else {
             islandInfo.setBiome("OCEAN");
-            sender.sendMessage(tr("\u00a7eChanged biome of {0}s island to OCEAN.", islandInfo.getLeader()));
+            sender.sendMessage(tr("§9☀ §8» §7Changed biome of §9{0}§7s island to OCEAN.", islandInfo.getLeader()));
         }
-        sender.sendMessage(tr("\u00a7aYou may need to go to spawn, or relog, to see the changes."));
+        sender.sendMessage(tr("§9☀ §8» §7You may need to go to spawn, or relog, to see the changes."));
     }
 
     private void setBiome(CommandSender sender, PlayerInfo playerInfo, IslandInfo islandInfo, String biome) {
         if (playerInfo == null || !playerInfo.getHasIsland()) {
-            sender.sendMessage(tr("\u00a74That player has no island."));
+            sender.sendMessage(tr("§9☀ §8» §7That player has no island."));
             return;
         }
         if (uSkyBlock.getInstance().setBiome(playerInfo.getIslandLocation(), biome)) {
             islandInfo.setBiome(biome);
-            sender.sendMessage(tr("\u00a7e{0} has had their biome changed to {1}.", playerInfo.getPlayerName(), biome));
+            sender.sendMessage(tr("§9☀ §8» §9{0} §7has had their biome changed to §9{1}§7.", playerInfo.getPlayerName(), biome));
         } else {
             islandInfo.setBiome("OCEAN");
-            sender.sendMessage(tr("\u00a7e{0} has had their biome changed to OCEAN.", playerInfo.getPlayerName()));
+            sender.sendMessage(tr("§9☀ §8» §9{0} §7has had their biome changed to §9OCEAN§7.", playerInfo.getPlayerName()));
         }
-        sender.sendMessage(tr("\u00a7aYou may need to go to spawn, or relog, to see the changes."));
+        sender.sendMessage(tr("§9☀ §8» §7You may need to go to spawn, or relog, to see the changes."));
     }
 
     private void deleteIsland(CommandSender sender, PlayerInfo playerInfo) {
         if (playerInfo != null && playerInfo.getIslandLocation() != null) {
-            sender.sendMessage(tr("\u00a7eRemoving {0}''s island.", playerInfo.getPlayerName()));
+            sender.sendMessage(tr("§9☀ §8» §7Removing §9{0}§7''s island.", playerInfo.getPlayerName()));
             uSkyBlock.getInstance().deletePlayerIsland(playerInfo.getPlayerName(), null);
         } else {
-            sender.sendMessage(tr("Error: That player does not have an island!"));
+            sender.sendMessage(tr("§9☀ §8» §7That player does not have an island!"));
         }
     }
 
     private void protectIsland(CommandSender sender, IslandInfo islandInfo) {
         if (WorldGuardHandler.protectIsland(plugin, sender, islandInfo)) {
-            sender.sendMessage(tr("\u00a7e{0}s island at {1} has been protected", islandInfo.getLeader(), islandInfo.getName()));
+            sender.sendMessage(tr("§9☀ §8» §9{0}§7s island at §9{1} §7has been protected", islandInfo.getLeader(), islandInfo.getName()));
         } else {
-            sender.sendMessage(tr("\u00a74{0}s island at {1} was already protected", islandInfo.getLeader(), islandInfo.getName()));
+            sender.sendMessage(tr("§9☀ §8» §9{0}§7s island at §9{1} §7was already protected", islandInfo.getLeader(), islandInfo.getName()));
         }
     }
 }

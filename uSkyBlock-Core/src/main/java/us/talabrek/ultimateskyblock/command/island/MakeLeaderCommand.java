@@ -21,16 +21,16 @@ public class MakeLeaderCommand extends RequireIslandCommand {
         if (args.length == 1) {
             String newLeader = args[0];
             if (!island.getMembers().contains(newLeader)) {
-                player.sendMessage(tr("\u00a74You can only transfer ownership to party-members!"));
+                player.sendMessage(tr("§9☀ §8» §7You can only transfer ownership to party-members!"));
                 return true;
             }
             if (island.getLeader().equals(newLeader)) {
-                player.sendMessage(tr("{0}\u00a7e is already leader of your island!", newLeader));
+                player.sendMessage(tr("§9☀ §8» §9{0} §7is already leader of your island!", newLeader));
                 return true;
             }
             if (!island.isLeader(player)) {
-                player.sendMessage(tr("\u00a74Only leader can transfer leadership!"));
-                island.sendMessageToIslandGroup(true, marktr("{0} tried to take over the island!"), newLeader);
+                player.sendMessage(tr("§9☀ §8» §7Only leader can transfer leadership!"));
+                island.sendMessageToIslandGroup(true, marktr("§9☀ §8» §9{0} §7tried to take over the island!"), newLeader);
                 return true;
             }
             island.setupPartyLeader(newLeader); // Promote member
@@ -38,7 +38,7 @@ public class MakeLeaderCommand extends RequireIslandCommand {
             WorldGuardHandler.updateRegion(island);
             PlayerInfo newLeaderInfo = uSkyBlock.getInstance().getPlayerInfo(newLeader);
             uSkyBlock.getInstance().getEventLogic().fireIslandLeaderChangedEvent(island, currentLeader, newLeaderInfo);
-            island.sendMessageToIslandGroup(true, tr("\u00a7bLeadership transferred by {0}\u00a7b to {1}", player.getDisplayName(), newLeader));
+            island.sendMessageToIslandGroup(true, tr("§9☀ §8» §7Leadership transferred by §9{0}§7 to §9{1}§7!", player.getDisplayName(), newLeader));
             return true;
         }
         return false;

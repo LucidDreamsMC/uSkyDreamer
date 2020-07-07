@@ -23,10 +23,10 @@ public class PermCommand extends RequireIslandCommand {
         String playerName = args.length > 0 ? args[0] : null;
         String perm = args.length > 1 ? args[1] : null;
         if (playerName != null && island.getMembers().contains(playerName) && perm == null) {
-            String msg = tr("\u00a7ePermissions for \u00a79{0}\u00a7e:", playerName) + "\n";
+            String msg = tr("§9☀ §8» §7Permissions for §9{0}§7:", playerName) + "\n";
             for (String validPerm : getValidPermissions()) {
                 boolean permValue = island.hasPerm(playerName, validPerm);
-                msg += tr("\u00a77 - \u00a76{0}\u00a77 : {1}", validPerm, permValue ? tr("\u00a7aON") : tr("\u00a7cOFF")) + "\n";
+                msg += tr("§9☀ §8» §9{0} §8⟶ §9{1}", validPerm, permValue ? tr("ON") : tr("OFF")) + "\n";
             }
             player.sendMessage(msg.trim().split("\n"));
             return true;
@@ -35,14 +35,14 @@ public class PermCommand extends RequireIslandCommand {
             return false;
         }
         if (!isValidPermission(perm)) {
-            player.sendMessage(tr("\u00a7cInvalid permission {0}. Must be one of {1}", perm, getValidPermissions()));
+            player.sendMessage(tr("§9☀ §8» §7Invalid permission {0}. Must be one of {1}", perm, getValidPermissions()));
             return true;
         }
         if (island.togglePerm(playerName, perm)) {
             boolean permValue = island.hasPerm(playerName, perm);
-            player.sendMessage(tr("\u00a7eToggled permission \u00a79{0}\u00a7e for \u00a79{1}\u00a7e to {2}", perm, playerName, permValue ? tr("\u00a7aON") : tr("\u00a7cOFF")));
+            player.sendMessage(tr("§9☀ §8» §7Toggled permission §9{0} §7for §9{1} §7to §9{2}", perm, playerName, permValue ? tr("ON") : tr("OFF")));
         } else {
-            player.sendMessage(tr("\u00a7eUnable to toggle permission \u00a79{0}\u00a7e for \u00a79{1}", perm, playerName));
+            player.sendMessage(tr("§9☀ §8» §7Unable to toggle permission §9{0}§7 for §9{1}§7!", perm, playerName));
         }
         return true;
     }

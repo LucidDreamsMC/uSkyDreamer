@@ -24,7 +24,7 @@ public class ChallengeCompleteCommand extends AbstractCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, Map<String, Object> data, String... args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(tr("\u00a7cCommand only available for players."));
+            sender.sendMessage(tr("§9☀ §8» §7Command only available for players."));
             return false;
         }
         if (args == null || args.length == 0) {

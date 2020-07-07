@@ -40,12 +40,12 @@ public class GetIslandDataCommand extends AbstractIslandInfoCommand {
             String getName = "get" + args[0].substring(0,1).toUpperCase() + args[0].substring(1);
             try {
                 Object value = IslandInfo.class.getMethod(getName).invoke(islandInfo);
-                sender.sendMessage(tr("\u00a7eCurrent value for {0} is ''{1}''", args[0], value));
+                sender.sendMessage(tr("§9☀ §8» §7Current value for §9{0} §7is §9'{1}'§7.", args[0], value));
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                sender.sendMessage(tr("\u00a7cUnable to get state for {0}", args[0]));
+                sender.sendMessage(tr("§9☀ §8» §7Unable to get state for §9{0}§7!", args[0]));
             }
         } else {
-            sender.sendMessage(tr("\u00a7eValid fields are {0}", getterNames));
+            sender.sendMessage(tr("§9☀ §8» §7Valid fields are §9{0}§7.", getterNames));
         }
     }
 

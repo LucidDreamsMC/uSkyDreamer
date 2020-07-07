@@ -22,13 +22,13 @@ public class GenTopTenCommand extends AbstractCommand {
 
     @Override
     public boolean execute(final CommandSender sender, String alias, Map<String, Object> data, String... args) {
-        sender.sendMessage(tr("\u00a7eGenerating the Top Ten list"));
+        sender.sendMessage(tr("§9☀ §8» §7Generating the Top Ten list"));
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, new Runnable() {
             @Override
             public void run() {
                 plugin.getIslandLogic().generateTopTen(sender);
                 plugin.getIslandLogic().showTopTen(sender, 1);
-                sender.sendMessage(tr("\u00a7eFinished generation of the Top Ten list"));
+                sender.sendMessage(tr("§9☀ §8» §7Finished generation of the Top Ten list"));
             }
         });
         return true;

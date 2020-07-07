@@ -1020,17 +1020,18 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
 
     public String getVersionInfo(boolean checkEnabled) {
         PluginDescriptionFile description = getDescription();
-        String msg = pre("\u00a77Name: \u00a7b{0}\n", description.getName());
-        msg += pre("\u00a77Version: \u00a7b{0}\n", description.getVersion());
-        msg += pre("\u00a77Description: \u00a7b{0}\n", description.getDescription());
-        msg += pre("\u00a77Language: \u00a7b{0} ({1})\n", getConfig().get("language", "en"), I18nUtil.getI18n().getLocale());
-        msg += pre("\u00a79  State: d={0}, r={1}, i={2}, p={3}, n={4}, awe={5}\n", Settings.island_distance, Settings.island_radius,
+        String msg = "§9◇§7＿＿＿＿＿＿§8｡o*【 §9uSkyBlock for Lucid §8】*o｡§7＿＿＿＿＿§9◇\n";
+        msg += pre("§9☀ §8» §7Name: §9{0}\n", description.getName());
+        msg += pre("§9☀ §8» §7Version: §9{0} (MODIFIED)\n", description.getVersion());
+        msg += pre("§9☀ §8» §7Description: §9{0}\n", description.getDescription());
+        msg += pre("§9☀ §8» §7Language: §9{0} ({1})\n", getConfig().get("language", "en"), I18nUtil.getI18n().getLocale());
+        msg += pre("§9☀ §8» §7  State: d={0}, r={1}, i={2}, p={3}, n={4}, awe={5}\n", Settings.island_distance, Settings.island_radius,
                 islandLogic.getSize(), playerLogic.getSize(),
                 Settings.nether_enabled, AsyncWorldEditHandler.isAWE());
-        msg += pre("\u00a77Server: \u00a7e{0} {1}\n", getServer().getName(), getServer().getVersion());
-        msg += pre("\u00a79  State: online={0}, bungee={1}\n", ServerUtil.isOnlineMode(),
+        msg += pre("§9☀ §8» §7Server: §9{0} {1}\n", getServer().getName(), getServer().getVersion());
+        msg += pre("§9☀ §8» §7  State: online={0}, bungee={1}\n", ServerUtil.isOnlineMode(),
                 ServerUtil.isBungeeEnabled());
-        msg += pre("\u00a77------------------------------\n");
+        msg += pre("§9◇§7＿＿＿＿＿＿§8｡o*【 §9DEPENDENCIES §8】*o｡§7＿＿＿＿＿§9◇\n");
         for (String[] dep : depends) {
             Plugin dependency = getServer().getPluginManager().getPlugin(dep[0]);
             if (dependency != null) {
@@ -1038,19 +1039,19 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
                 if (checkEnabled) {
                     if (dependency.isEnabled()) {
                         if (VersionUtil.getVersion(dependency.getDescription().getVersion()).isLT(dep[1])) {
-                            status = pre("\u00a7eWRONG-VERSION");
+                            status = pre("§9☀ §8» §cWRONG-VERSION");
                         } else {
-                            status = pre("\u00a72ENABLED");
+                            status = pre("§9☀ §8» §7ENABLED");
                         }
                     } else {
-                        status = pre("\u00a74DISABLED");
+                        status = pre("§9☀ §8» §cDISABLED");
                     }
                 }
-                msg += pre("\u00a77\u00a7d{0} \u00a7f{1} \u00a77({2}\u00a77)\n", dependency.getName(),
+                msg += pre("§9☀ §8» §9{0} §7{1} §7({2}§7)\n", dependency.getName(),
                         dependency.getDescription().getVersion(), status);
             }
         }
-        msg += pre("\u00a77------------------------------\n");
+        msg += pre("§9◇§7＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿§9◇\n");
         return msg;
     }
 
@@ -1137,7 +1138,7 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
     @Override
     public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
         if (!isRequirementsMet(sender, null, args)) {
-            sender.sendMessage(tr("\u00a7cCommand is currently disabled!"));
+            sender.sendMessage(tr("§9☀ §8» §7Command is currently disabled!"));
         }
         return true;
     }
