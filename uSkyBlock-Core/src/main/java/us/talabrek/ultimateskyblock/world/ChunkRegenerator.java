@@ -68,7 +68,7 @@ public class ChunkRegenerator {
      * Regenerates the given {@link Chunk}, removing all it's entities except players and setting the default biome.
      * @param chunk Chunk to regenerate.
      */
-    private void regenerateChunk(@NotNull Chunk chunk) {
+    public void regenerateChunk(@NotNull Chunk chunk) {
         Validate.notNull(chunk, "Chunk cannot be null");
 
         spawnTeleportPlayers(chunk);
@@ -79,10 +79,9 @@ public class ChunkRegenerator {
 
         for (int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {
-                chunk.getBlock(x, 0, z).setBiome(biomeGrid.getBiome(x, z));
-
                 for (int y = 0; y < chunk.getWorld().getMaxHeight(); y++) {
                     chunk.getBlock(x, y, z).setBlockData(chunkData.getBlockData(x, y, z));
+                    chunk.getBlock(x, y, z).setBiome(biomeGrid.getBiome(x, y, z));
                 }
             }
         }
@@ -124,7 +123,7 @@ public class ChunkRegenerator {
                     defaultBiome = Biome.THE_END;
                     break;
                 case NETHER:
-                    defaultBiome = Biome.NETHER;
+                    defaultBiome = Biome.NETHER_WASTES;
                     break;
                 default:
                     defaultBiome = Biome.OCEAN;
@@ -133,13 +132,26 @@ public class ChunkRegenerator {
         }
 
         @NotNull
+        @Deprecated
         @Override
         public Biome getBiome(int x, int z) {
             return defaultBiome;
         }
 
+        @NotNull
+        @Override
+        public Biome getBiome(int x, int y, int z) {
+            return defaultBiome;
+        }
+
+        @Deprecated
         @Override
         public void setBiome(int x, int z, @NotNull Biome bio) {
+            defaultBiome = bio;
+        }
+
+        @Override
+        public void setBiome(int x, int y, int z, @NotNull Biome bio) {
             defaultBiome = bio;
         }
     }
