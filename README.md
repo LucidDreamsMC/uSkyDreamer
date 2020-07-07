@@ -2,6 +2,8 @@
 
 This is a continually updated and custom version of Talabrek's Ultimate SkyBlock plugin.
 
+The fork maintained by Thatsmusic99 is a specially modified version for the server Lucid Dreams. Whilst it may have moderate code changes compared to the original uSkyBlock, all credit belongs to the original owners of the plugin.
+
 We are on [Spigot](https://www.spigotmc.org/resources/uskyblock-revived.66795/). Currently [Open Issues](https://github.com/rlf/uSkyBlock/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20-label%3A%22T%20ready%20for%20test%22%20-label%3A%22T%20tested%20awaiting%20reporter%22)
 
 # Installation
