@@ -24,6 +24,7 @@ public class GotoIslandCommand extends AbstractPlayerInfoCommand {
     protected void doExecute(final CommandSender sender, final PlayerInfo playerInfo) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(I18nUtil.tr("§9☀ §8» §7Only supported for players"));
+            return;
         }
         final Player player = (Player) sender;
         if (!playerInfo.getHasIsland()) {

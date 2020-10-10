@@ -109,7 +109,6 @@ import java.util.regex.Pattern;
 
 import static dk.lockfuglsang.minecraft.po.I18nUtil.pre;
 import static dk.lockfuglsang.minecraft.po.I18nUtil.tr;
-import static us.talabrek.ultimateskyblock.util.LocationUtil.isSafeLocation;
 import static us.talabrek.ultimateskyblock.util.LogUtil.log;
 
 public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManager.RequirementChecker {
@@ -118,7 +117,7 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
             new String[]{"Vault", "1.7.0", "optional"},
             new String[]{"WorldEdit", "7.0", "optionalIf", "FastAsyncWorldEdit"},
             new String[]{"WorldGuard", "7.0"},
-            new String[]{"FastAsyncWorldEdit", "1.13", "optional"},
+            new String[]{"FastAsyncWorldEdit", "1.16.1", "optional"},
             new String[]{"Multiverse-Core", "2.5", "optional"},
             new String[]{"Multiverse-Portals", "2.5", "optional"},
             new String[]{"Multiverse-NetherPortals", "2.5", "optional"},
@@ -216,6 +215,7 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
                 if (!isRequirementsMet(Bukkit.getConsoleSender(), null)) {
                     return;
                 }
+                uSkyBlock.this.getHookManager().setupMultiverse();
                 uSkyBlock.this.getHookManager().setupEconomyHook();
                 uSkyBlock.this.getHookManager().setupPermissionsHook();
                 AsyncWorldEditHandler.onEnable(uSkyBlock.this);
@@ -228,6 +228,7 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
                     Bukkit.getConsoleSender().sendMessage(tr("Converting data to UUID, this make take a while!"));
                     getImporter().importUSB(Bukkit.getConsoleSender(), "name2uuid");
                 }
+                getServer().dispatchCommand(getServer().getConsoleSender(), "usb flush"); // See uskyblock#4
                 log(Level.INFO, getVersionInfo(false));
             }
         }, getConfig().getLong("init.initDelay", 50L));
@@ -487,26 +488,6 @@ public class uSkyBlock extends JavaPlugin implements uSkyBlockAPI, CommandManage
         } else {
             resetIsland.run();
         }
-        return true;
-    }
-
-    public boolean homeSet(final Player player) {
-        if (!player.getWorld().getName().equalsIgnoreCase(getWorldManager().getWorld().getName())) {
-            player.sendMessage(tr("\u00a74You must be closer to your island to set your skyblock home!"));
-            return true;
-        }
-        if (playerIsOnOwnIsland(player)) {
-            PlayerInfo playerInfo = playerLogic.getPlayerInfo(player);
-            if (playerInfo != null && isSafeLocation(player.getLocation())) {
-                playerInfo.setHomeLocation(player.getLocation());
-                playerInfo.save();
-                player.sendMessage(tr("\u00a7aYour skyblock home has been set to your current location."));
-            } else {
-                player.sendMessage(tr("\u00a74Your current location is not a safe home-location."));
-            }
-            return true;
-        }
-        player.sendMessage(tr("\u00a74You must be closer to your island to set your skyblock home!"));
         return true;
     }
 

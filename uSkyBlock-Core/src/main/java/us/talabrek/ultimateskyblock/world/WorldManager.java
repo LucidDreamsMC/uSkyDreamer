@@ -17,8 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import us.talabrek.ultimateskyblock.Settings;
 import us.talabrek.ultimateskyblock.handler.AsyncWorldEditHandler;
-import us.talabrek.ultimateskyblock.handler.MultiverseCoreHandler;
-import us.talabrek.ultimateskyblock.handler.MultiverseInventoriesHandler;
 import us.talabrek.ultimateskyblock.uSkyBlock;
 import us.talabrek.ultimateskyblock.util.LocationUtil;
 
@@ -206,9 +204,14 @@ public class WorldManager {
                         .createWorld();
                 skyBlockWorld.save();
             }
-            MultiverseCoreHandler.importWorld(skyBlockWorld);
-            setupWorld(skyBlockWorld, island_height);
         }
+
+        plugin.getServer().getScheduler().runTaskLater(plugin, () ->
+            plugin.getHookManager().getMultiverse().ifPresent(hook -> {
+                hook.registerOverworld(skyBlockWorld);
+                setupWorld(skyBlockWorld, Settings.island_height);
+        }), plugin.getConfig().getLong("init.initDelay", 50L) + 40L);
+
         return skyBlockWorld;
     }
 
@@ -219,7 +222,11 @@ public class WorldManager {
      */
     @Nullable
     public synchronized World getNetherWorld() {
-        if (skyBlockNetherWorld == null && Settings.nether_enabled) {
+        if (!Settings.nether_enabled) {
+            return null;
+        }
+
+        if (skyBlockNetherWorld == null) {
             skyBlockNetherWorld = Bukkit.getWorld(Settings.general_worldName + "_nether");
             ChunkGenerator skyGenerator = getNetherGenerator();
             ChunkGenerator worldGenerator = skyBlockNetherWorld != null ? skyBlockNetherWorld.getGenerator() : null;
@@ -236,10 +243,14 @@ public class WorldManager {
                         .createWorld();
                 skyBlockNetherWorld.save();
             }
-            MultiverseCoreHandler.importNetherWorld(skyBlockNetherWorld);
-            setupWorld(skyBlockNetherWorld, island_height / 2);
-            MultiverseInventoriesHandler.linkWorlds(getWorld(), skyBlockNetherWorld);
         }
+
+        plugin.getServer().getScheduler().runTaskLater(plugin, () ->
+            plugin.getHookManager().getMultiverse().ifPresent(hook -> {
+                hook.registerNetherworld(skyBlockNetherWorld);
+                setupWorld(skyBlockNetherWorld, island_height / 2);
+            }), plugin.getConfig().getLong("init.initDelay", 50L) + 100L);
+
         return skyBlockNetherWorld;
     }
 
