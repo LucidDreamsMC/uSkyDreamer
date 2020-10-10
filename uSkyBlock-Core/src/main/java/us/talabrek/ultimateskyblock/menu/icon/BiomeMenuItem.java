@@ -1,4 +1,4 @@
-package us.talabrek.ultimateskyblock.menu;
+package us.talabrek.ultimateskyblock.menu.icon;
 
 import org.bukkit.inventory.ItemStack;
 

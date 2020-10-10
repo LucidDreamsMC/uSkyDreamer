@@ -67,11 +67,13 @@ public class ConfigPre113Importer implements USBImporter {
     private void convertConfig(FileConfiguration config) {
         Set<String> keys = config.getKeys(true);
         // displayItems (and lockedDisplayItem)
-        for (String key : keys.stream().filter(f -> f.toLowerCase().endsWith("displayitem")).collect(Collectors.toList())) {
-            try {
-                config.set(key, convertItem(config.getString(key)));
-            } catch (Exception e) {
-                LogUtil.log(Level.WARNING, "Unable to convert config.yml:" + key + ":" + e.getMessage());
+        for (String key : keys) {
+            if (key.toLowerCase().endsWith("displayitem")) {
+                try {
+                    config.set(key, convertItem(config.getString(key)));
+                } catch (Exception e) {
+                    LogUtil.log(Level.WARNING, "Unable to convert config.yml:" + key + ":" + e.getMessage());
+                }
             }
         }
         // chestItems
@@ -100,32 +102,41 @@ public class ConfigPre113Importer implements USBImporter {
     private void convertChallenges(FileConfiguration config) {
         // Convert all requiredItems
         Set<String> keys = config.getKeys(true);
-        for (String key : keys.stream().filter(f -> f.endsWith(".requiredItems")).collect(Collectors.toList())) {
-            try {
-                List<String> value = new ArrayList<>();
-                value.addAll(convertRequiredItemsList(config.getStringList(key)));
-                config.set(key, value);
-            } catch (Exception e) {
-                LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+        for (String key : keys) {
+            if (key.endsWith(".requiredItems")) {
+                try {
+                    List<String> value = new ArrayList<>();
+                    value.addAll(convertRequiredItemsList(config.getStringList(key)));
+                    config.set(key, value);
+                } catch (Exception e) {
+                    LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+                }
             }
+
         }
         // Rewards (.items)
-        for (String key : keys.stream().filter(f -> f.endsWith(".items")).collect(Collectors.toList())) {
-            try {
-                List<String> value = new ArrayList<>();
-                value.addAll(convertItemAmountList(config.getStringList(key)));
-                config.set(key, value);
-            } catch (Exception e) {
-                LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+        for (String key : keys) {
+            if (key.endsWith(".items")) {
+                try {
+                    List<String> value = new ArrayList<>();
+                    value.addAll(convertItemAmountList(config.getStringList(key)));
+                    config.set(key, value);
+                } catch (Exception e) {
+                    LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+                }
             }
+
         }
         // displayItems (and lockedDisplayItem)
-        for (String key : keys.stream().filter(f -> f.toLowerCase().endsWith("displayitem")).collect(Collectors.toList())) {
-            try {
-                config.set(key, convertItem(config.getString(key)));
-            } catch (Exception e) {
-                LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+        for (String key : keys) {
+            if (key.toLowerCase().endsWith("displayitem")) {
+                try {
+                    config.set(key, convertItem(config.getString(key)));
+                } catch (Exception e) {
+                    LogUtil.log(Level.WARNING, "Unable to convert challenges.yml:" + key + ":" + e.getMessage());
+                }
             }
+
         }
     }
 

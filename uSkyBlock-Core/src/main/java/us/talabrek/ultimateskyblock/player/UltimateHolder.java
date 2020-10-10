@@ -1,22 +1,28 @@
 package us.talabrek.ultimateskyblock.player;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import us.talabrek.ultimateskyblock.menu.icon.MenuIcon;
 
-public class UltimateHolder implements InventoryHolder {
+public abstract class UltimateHolder implements InventoryHolder {
 
-	private Player player;
-	private String title;
-	private MenuType menuType;
+	protected final Player player;
+	private final String title;
+	private final MenuType menuType;
+	private final MenuIcon[] slots;
 
 	public UltimateHolder(@Nullable Player player, @NotNull String title, @NotNull MenuType menuType) {
 		this.player = player;
 		this.title = title;
 		this.menuType = menuType;
+		slots = new MenuIcon[54];
 	}
+
+	public abstract void init();
 
 	@NotNull
 	@Override
@@ -38,6 +44,24 @@ public class UltimateHolder implements InventoryHolder {
 	public MenuType getMenuType() {
 		return menuType;
 	}
+
+	public void addIcon(int slot, MenuIcon icon) {
+	    slots[slot] = icon;
+    }
+
+	public Inventory buildInventory() {
+	    Inventory inv = Bukkit.createInventory(this, 36, title);
+	    for (int i = 0; i < 36; i++) {
+	        if (slots[i] != null) {
+	            inv.setItem(i, slots[i].getItem());
+            }
+        }
+	    return inv;
+    }
+
+    public MenuIcon getIcon(int slot) {
+	    return slots[slot];
+    }
 
 	public enum MenuType {
 		CONFIG,

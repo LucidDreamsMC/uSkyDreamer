@@ -28,8 +28,8 @@ public class NBTCommand extends CompositeCommand {
                     if (itemStack != null) {
                         String[] msgs = new String[]{
                                 tr("§9☀ §8» §7Info for §9{0}", ItemStackUtil.asString(itemStack)),
-                                tr("§9☀ §8» §7Name: §9{0}", VaultHandler.getItemName(itemStack)),
-                                tr("§9☀ §8» §7Nbttag: §9{0}", NBTUtil.getNBTTag(itemStack))
+                                tr("§9☀ §8» §7Name: §9{0}", ItemStackUtil.getItemName(itemStack)),
+                                tr("§9☀ §8» §7NBT Tag: §9{0}", NBTUtil.getNBTTag(itemStack))
                         };
                         player.sendMessage(msgs);
                     } else {
@@ -69,7 +69,7 @@ public class NBTCommand extends CompositeCommand {
                 if (sender instanceof Player) {
                     if (args.length > 0) {
                         Player player = (Player) sender;
-                        ItemStack itemStack = player.getInventory().getItemInHand();
+                        ItemStack itemStack = player.getInventory().getItemInMainHand();
                         if (itemStack != null) {
                             String nbtTag = join(args);
                             itemStack = NBTUtil.addNBTTag(itemStack, nbtTag);

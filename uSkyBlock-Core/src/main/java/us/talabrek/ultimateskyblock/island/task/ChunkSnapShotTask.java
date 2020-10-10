@@ -3,6 +3,7 @@ package us.talabrek.ultimateskyblock.island.task;
 import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import io.papermc.lib.PaperLib;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.Location;
@@ -36,15 +37,16 @@ public class ChunkSnapShotTask extends IncrementalRunnable {
     @Override
     protected boolean execute() {
         while (!chunks.isEmpty()) {
-            BlockVector2 chunkVector = chunks.remove(0);
-            Chunk chunk = location.getWorld().getChunkAt(chunkVector.getBlockX(), chunkVector.getBlockZ());
-            if (!chunk.isLoaded()) {
-                chunk.load();
-            }
-            snapshots.add(chunk.getChunkSnapshot(false, false, false));
+
+            PaperLib.getChunkAtAsync(location).thenAccept(chunk -> {
+                chunks.remove(0);
+                snapshots.add(chunk.getChunkSnapshot(false, false, false));
+
+            });
             if (!tick()) {
                 break;
             }
+
         }
         return chunks.isEmpty();
     }

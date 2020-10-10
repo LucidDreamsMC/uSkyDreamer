@@ -34,6 +34,7 @@ public class BlockCountCollection {
     }
 
     public List<BlockScore> calculateScore(double pointsPerLevel) {
+
         return countMap.entrySet().stream()
                 .map(e -> configMap.get(e.getKey()).calculateScore(e.getValue().intValue(), pointsPerLevel))
                 .filter(f -> f.getScore() != 0)

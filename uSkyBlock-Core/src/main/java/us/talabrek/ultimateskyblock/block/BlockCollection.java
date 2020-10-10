@@ -52,7 +52,12 @@ public class BlockCollection {
 
     private int count(Material type) {
         Map<Byte, Integer> countMap = blockCount.getOrDefault(type, Collections.emptyMap());
-        return countMap.values().stream().mapToInt(i -> i).sum();
+        // you're trying too hard to reduce line count, ffs
+        int total = 0;
+        for (int value : countMap.values()) {
+            total += value;
+        }
+        return total;
     }
 
     public int count(Material type, byte data) {

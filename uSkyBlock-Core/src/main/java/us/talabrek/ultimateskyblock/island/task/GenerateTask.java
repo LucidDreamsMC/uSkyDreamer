@@ -1,5 +1,6 @@
 package us.talabrek.ultimateskyblock.island.task;
 
+import io.papermc.lib.PaperLib;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -46,46 +47,48 @@ public class GenerateTask extends BukkitRunnable {
         if (hasRun) {
             return;
         }
-        next.getChunk().load();
-        Perk perk = plugin.getPerkLogic().getIslandPerk(schematicName).getPerk();
-        perk = perk.combine(playerPerk.getPerk());
-        if (chestLocation != null) {
-            plugin.getIslandGenerator().setChest(chestLocation, perk);
-        } else {
-            plugin.getIslandGenerator().findAndSetChest(next, perk);
-        }
-        IslandInfo islandInfo = plugin.setNewPlayerIsland(pi, next);
-        islandInfo.setSchematicName(schematicName);
-        WorldGuardHandler.updateRegion(islandInfo);
-        plugin.getCooldownHandler().resetCooldown(player, "restart", Settings.general_cooldownRestart);
+        PaperLib.getChunkAtAsync(next).thenAccept(chunk -> {
+            Perk perk = plugin.getPerkLogic().getIslandPerk(schematicName).getPerk();
+            perk = perk.combine(playerPerk.getPerk());
+            if (chestLocation != null) {
+                plugin.getIslandGenerator().setChest(chestLocation, perk);
+            } else {
+                plugin.getIslandGenerator().findAndSetChest(next, perk);
+            }
+            IslandInfo islandInfo = plugin.setNewPlayerIsland(pi, next);
+            islandInfo.setSchematicName(schematicName);
+            WorldGuardHandler.updateRegion(islandInfo);
+            plugin.getCooldownHandler().resetCooldown(player, "restart", Settings.general_cooldownRestart);
 
-        plugin.sync(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (pi != null) {
-                            pi.setIslandGenerating(false);
-                        }
-                        plugin.clearPlayerInventory(player);
-                        if (player != null && player.isOnline()) {
-                            if (plugin.getConfig().getBoolean("options.restart.teleportWhenReady", true)) {
-                                player.sendMessage(tr("\u00a7aCongratulations! \u00a7eYour island has appeared."));
-                                if (AsyncWorldEditHandler.isAWE()) {
-                                    player.sendMessage(tr("\u00a7cNote:\u00a7e Construction might still be ongoing."));
+            plugin.sync(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (pi != null) {
+                                    pi.setIslandGenerating(false);
                                 }
-                                plugin.getTeleportLogic().homeTeleport(player, true);
-                            } else {
-                                player.sendMessage(new String[]{
-                                        tr("\u00a7aCongratulations! \u00a7eYour island has appeared."),
-                                        tr("Use \u00a79/is h\u00a7r or the \u00a79/is\u00a7r menu to go there."),
-                                        tr("\u00a7cNote:\u00a7e Construction might still be ongoing.")});
+                                plugin.clearPlayerInventory(player);
+                                if (player != null && player.isOnline()) {
+                                    if (plugin.getConfig().getBoolean("options.restart.teleportWhenReady", true)) {
+                                        player.sendMessage(tr("\u00a7aCongratulations! \u00a7eYour island has appeared."));
+                                        if (AsyncWorldEditHandler.isAWE()) {
+                                            player.sendMessage(tr("\u00a7cNote:\u00a7e Construction might still be ongoing."));
+                                        }
+                                        plugin.getTeleportLogic().homeTeleport(player, true);
+                                    } else {
+                                        player.sendMessage(new String[]{
+                                            tr("\u00a7aCongratulations! \u00a7eYour island has appeared."),
+                                            tr("Use \u00a79/is h\u00a7r or the \u00a79/is\u00a7r menu to go there."),
+                                            tr("\u00a7cNote:\u00a7e Construction might still be ongoing.")});
+                                    }
+                                }
+                                for (String command : plugin.getConfig().getStringList("options.restart.extra-commands")) {
+                                    plugin.execCommand(player, command, true);
+                                }
                             }
-                        }
-                        for (String command : plugin.getConfig().getStringList("options.restart.extra-commands")) {
-                            plugin.execCommand(player, command, true);
-                        }
-                    }
-                }, plugin.getConfig().getInt("options.restart.teleportDelay", 2000)
-        );
+                        }, plugin.getConfig().getInt("options.restart.teleportDelay", 2000)
+            );
+        });
+
     }
 }
 

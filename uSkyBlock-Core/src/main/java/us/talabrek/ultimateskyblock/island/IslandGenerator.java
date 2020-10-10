@@ -183,11 +183,13 @@ public class IslandGenerator {
 
     private File getSchematicFile(String cSchem) {
         List<String> extensions = Arrays.asList("schematic", "schem");
-        return extensions.stream()
-                .map(f -> new File(directorySchematics, cSchem + "." + f))
-                .filter(f -> f.exists() && f.canRead())
-                .findFirst()
-                .orElse(null);
+        for (String ext : extensions) {
+            File schem = new File(directorySchematics, cSchem + "." + ext);
+            if (schem.exists() && schem.canRead()) {
+                return schem;
+            }
+        }
+        return null;
     }
 
     private boolean isSchematicFile(ZipEntry entry, String prefix) {

@@ -109,7 +109,7 @@ public class IslandCommand extends BaseCommandExecutor {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 0) {
-                player.openInventory(menu.displayIslandGUI(player));
+                player.openInventory(menu.displayIslandGUI(player).buildInventory());
                 return true;
             }
         }

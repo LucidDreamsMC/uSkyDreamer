@@ -71,11 +71,13 @@ public class WorldManager {
             for (int z = -1; z <= 1; ++z) {
                 Chunk chunk = target.getWorld().getChunkAt(
                         new Location(target.getWorld(), (px + x * 16), py, (pz + z * 16)));
-
-                Arrays.stream(chunk.getEntities())
-                        .filter(entity -> entity instanceof Monster)
-                        .filter(entity -> entity.getCustomName() == null)
-                        .forEach(Entity::remove);
+                for (Entity entity : chunk.getEntities()) {
+                    if (entity instanceof Monster) {
+                        if (entity.getCustomName() == null) {
+                            entity.remove();
+                        }
+                    }
+                }
             }
         }
     }

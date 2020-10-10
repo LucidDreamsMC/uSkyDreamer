@@ -36,7 +36,7 @@ public enum I18nUtil {
      */
     @NotNull
     public static String tr(@Nullable String s) {
-        return getI18n().tr(s);
+        return getI18n().tr(s).replaceAll("&", "§");
     }
 
     /**
@@ -48,7 +48,7 @@ public enum I18nUtil {
      */
     @NotNull
     public static String tr(@Nullable String s, @Nullable Object... args) {
-        return getI18n().tr(s, args);
+        return getI18n().tr(s, args).replaceAll("&", "§");
     }
 
     /**

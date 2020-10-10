@@ -94,9 +94,11 @@ public class ChunkRegenerator {
      * @param chunk Chunk to remove entities in.
      */
     private void removeEntities(@NotNull Chunk chunk) {
-        Arrays.stream(chunk.getEntities())
-                .filter(entity -> !(entity instanceof Player))
-                .forEach(Entity::remove);
+        for (Entity entity : chunk.getEntities()) {
+            if (!(entity instanceof Player)) {
+                entity.remove();
+            }
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ public class PlayerInfo implements Serializable, us.talabrek.ultimateskyblock.ap
     private static final long serialVersionUID = 1L;
     private static final int YML_VERSION = 1;
     private final uSkyBlock plugin;
-    private String playerName;
+    private final String playerName;
     private String displayName;
     private UUID uuid;
 
