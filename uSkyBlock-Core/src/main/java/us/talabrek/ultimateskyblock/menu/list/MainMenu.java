@@ -14,8 +14,6 @@ import static dk.lockfuglsang.minecraft.po.I18nUtil.tr;
 
 public class MainMenu extends UltimateHolder {
 
-    private static final uSkyBlock plugin = uSkyBlock.getInstance();
-
     public MainMenu(@Nullable Player player, @NotNull String title, @NotNull MenuType menuType) {
         super(player, title, menuType);
     }

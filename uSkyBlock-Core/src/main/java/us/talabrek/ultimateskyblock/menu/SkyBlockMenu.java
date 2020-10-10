@@ -293,7 +293,7 @@ public class SkyBlockMenu {
         addLore(lores, tr("\u00a7eClick here to return to\n\u00a7ethe main island screen."));
         meta4.setLore(lores);
         sign.setItemMeta(meta4);
-        menu.addItem(new ItemStack[]{sign});
+        menu.addItem(sign);
         lores.clear();
         String currentBiome = plugin.getIslandInfo(player).getBiome();
         for (BiomeMenuItem biomeMenu : biomeMenus) {

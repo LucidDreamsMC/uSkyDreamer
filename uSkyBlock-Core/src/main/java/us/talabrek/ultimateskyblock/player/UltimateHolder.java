@@ -7,6 +7,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import us.talabrek.ultimateskyblock.menu.icon.MenuIcon;
+import us.talabrek.ultimateskyblock.uSkyBlock;
 
 public abstract class UltimateHolder implements InventoryHolder {
 
@@ -14,6 +15,7 @@ public abstract class UltimateHolder implements InventoryHolder {
 	private final String title;
 	private final MenuType menuType;
 	private final MenuIcon[] slots;
+    protected static final uSkyBlock plugin = uSkyBlock.getInstance();
 
 	public UltimateHolder(@Nullable Player player, @NotNull String title, @NotNull MenuType menuType) {
 		this.player = player;
